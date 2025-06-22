@@ -119,7 +119,7 @@ workflow:
       action: execute-checklist
       inputs:
         - epic_number
-      checklist: epic-readiness-checklist.md
+      checklist: po-master-checklist.md
       notes: "REQUIRED: Use Task tool for execution - Validate epic business readiness and dependencies before story creation"
       story_status_update: "N/A - No story exists yet"
       
@@ -234,7 +234,7 @@ workflow:
       checklist_completion_tracking: true
       
     - step: consolidate_feedback
-      agent: architect
+      agent: sm
       action: consolidate-review-feedback
       requires: [round1_architecture_review, round1_business_review, round1_process_review, round1_qa_review, round1_ux_review]
       inputs:
@@ -244,7 +244,7 @@ workflow:
         - process_feedback
         - qa_feedback
         - ux_feedback
-      notes: "REQUIRED: Use Task tool for execution - Architect consolidates all review feedback with REQUIRED-FOR-COMPLETION/QUALITY-STANDARD/IMPROVEMENT classification"
+      notes: "REQUIRED: Use Task tool for execution - Scrum Master consolidates all review feedback with REQUIRED-FOR-COMPLETION/QUALITY-STANDARD/IMPROVEMENT/SCOPE-CREEP classification. Compare ALL feedback against original acceptance criteria to identify scope creep."
       
     - step: implement_fixes
       agent: dev
@@ -491,9 +491,7 @@ workflow:
       - create-comprehensive-pr
       - update-epic-progress
       - epic-party-mode-retrospective
-    expansion_checklists:
-      - story-approval-checklist.md
-      - epic-readiness-checklist.md
+    expansion_checklists: []
 
   handoff_prompts:
     po_validate_epic: "Validate epic {epic_number} readiness for story creation - check approval status, dependencies, and business context"

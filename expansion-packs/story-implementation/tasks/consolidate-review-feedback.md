@@ -1,13 +1,13 @@
 # Consolidate Review Feedback
 
 ## Task Overview
-**Agent:** architect  
+**Agent:** sm  
 **Action Type:** feedback-consolidation  
 **Duration:** 10-15 minutes  
 **LLM-Optimized:** Token-efficient structured consolidation  
 
 ## Purpose
-Consolidate feedback from all Round 1 reviews into prioritized action plan with REQUIRED-FOR-COMPLETION/QUALITY-STANDARD/IMPROVEMENT classification for efficient implementation.
+Consolidate feedback from all Round 1 reviews into prioritized action plan with REQUIRED-FOR-COMPLETION/QUALITY-STANDARD/IMPROVEMENT/SCOPE-CREEP classification for efficient implementation while maintaining story focus.
 
 ## Context
 Central coordination after 5 parallel Round 1 reviews:
@@ -36,6 +36,12 @@ Central coordination after 5 parallel Round 1 reviews:
 
 ### Step 1: Pre-Consolidation Analysis
 
+**Original Story Analysis (CRITICAL FIRST STEP):**
+1. Read original user story and ALL acceptance criteria from story file
+2. Identify explicit requirements vs implicit assumptions
+3. Note any performance, testing, or quality requirements in original AC
+4. Establish baseline: "What was originally agreed as MVP scope?"
+
 **Feedback Source Review:**
 - Architecture: Technical design and implementation issues
 - Business: Requirements and value delivery gaps
@@ -47,12 +53,24 @@ Central coordination after 5 parallel Round 1 reviews:
 ```
 FEEDBACK_ANALYSIS:
 - Total items: [count]
+- Original AC items: [count]
+- Scope expansion items: [count]
 - Overlapping issues: [count]
 - Conflicts identified: [count]
 - Implementation effort: [HIGH/MEDIUM/LOW]
 ```
 
 ### Step 2: Priority Classification
+
+**SCOPE-CREEP DETECTION (Scrum Master Responsibility):**
+Before classification, compare ALL feedback against original story acceptance criteria:
+- Read original user story and acceptance criteria from story file
+- Compare each suggestion against original requirements
+- Flag anything NOT explicitly required by acceptance criteria
+- Identify tests/standards beyond project minimums
+- Mark nice-to-have additions that expand scope
+- Apply "strict AC compliance" - if not in original AC = potential scope creep
+- Consult architect for complex technical feasibility questions if needed
 
 **REQUIRED-FOR-COMPLETION** (Blocks story completion):
 - Acceptance criteria gaps
@@ -77,6 +95,15 @@ FEEDBACK_ANALYSIS:
 - Documentation enhancements
 - Process improvements
 
+**SCOPE-CREEP** (Outside original story scope - IGNORE):
+- Features not in original acceptance criteria
+- Tests beyond project minimum standards (unless AC specifies performance requirements)
+- Functionality belonging to future stories
+- Nice-to-have additions not in user story
+- Optimizations not needed for story completion
+- Requirements that expand original scope beyond MVP intent
+- "Should also do X" suggestions where X is not in AC
+
 **Classification Format (Max 50 tokens/item):**
 ```
 [PRIORITY]: [Issue] - [Domain] - [Effort: S/M/L] - [Impact: H/M/L]
@@ -87,14 +114,16 @@ FEEDBACK_ANALYSIS:
 - Technical vs Business conflicts → Acceptance criteria priority
 - Similar issues → Consolidate into single action
 - Priority disputes → Story completion impact assessment
-- Reviewer disagreements → Architecture principles guide
+- Reviewer disagreements → Consult with relevant expert (architect for technical, PO for business)
+- Complex technical conflicts → Escalate to architect consultation
 
 ### Step 4: Implementation Sequencing (3-4 minutes)
 **Sequencing Rules:**
-1. REQUIRED-FOR-COMPLETION (dependency order)
-2. QUALITY-STANDARD (grouped by domain)
-3. Dependencies: Backend → Frontend → Integration
-4. Validation checkpoints after major changes
+1. SCOPE-CREEP items → IGNORE (do not implement)
+2. REQUIRED-FOR-COMPLETION (dependency order)
+3. QUALITY-STANDARD (grouped by domain)
+4. Dependencies: Backend → Frontend → Integration
+5. Validation checkpoints after major changes
 
 **Implementation Groups:**
 ```
@@ -108,7 +137,7 @@ Update story file with:
 
 ```markdown
 ## Review Consolidation Summary
-**Architect:** [Name] | **Date:** [YYYY-MM-DD] | **Duration:** [X minutes]
+**Scrum Master:** [Name] | **Date:** [YYYY-MM-DD] | **Duration:** [X minutes]
 
 ### Round 1 Review Results
 - Architecture: [PASS/ISSUES] ([X] items)
@@ -127,6 +156,9 @@ Update story file with:
 #### IMPROVEMENT ([X] items)
 - [Issue] - [Domain] - [Effort] - [Value] | Max 50 tokens
 
+#### SCOPE-CREEP ([X] items - IGNORED)
+- [Issue] - [Domain] - [Reason: Outside AC/Future Story/Nice-to-have] | Max 50 tokens
+
 ### Implementation Sequence
 **Phase 1:** [Critical fixes] - Est: [time] - Items: [count]
 **Phase 2:** [Quality fixes] - Est: [time] - Items: [count]
@@ -143,8 +175,10 @@ Update story file with:
 
 ## Success Criteria
 - [ ] All 5 review streams analyzed and categorized
-- [ ] Conflicts resolved with clear rationale
-- [ ] Priority classification complete (3 categories)
+- [ ] Original acceptance criteria reviewed and compared against all feedback
+- [ ] Scope creep identified by Scrum Master and marked as IGNORE
+- [ ] Conflicts resolved with clear rationale (architect consulted for technical disputes)
+- [ ] Priority classification complete (4 categories)
 - [ ] Implementation sequence with time estimates
 - [ ] Story file updated with structured summary
 - [ ] Action items under 50 tokens each
@@ -186,4 +220,5 @@ If conflicts cannot be resolved:
 - **Input from:** Round 1 reviews (architect, po, sm, qa, ux-expert)
 - **Output to:** implement-consolidated-fixes task (dev agent)
 - **Dependencies:** All Round 1 review checklists must be complete
+- **Consultation:** Architect available for complex technical dispute resolution
 - **Validation:** Next phase will validate using story docs + Playwright MCP

@@ -16,7 +16,7 @@ Product Owner validation and approval of story for development readiness. Valida
 - Understand the story's role within the epic objectives
 
 ### 2. Execute Story Approval Checklist
-- Use `story-approval-checklist.md` as validation framework
+- Use `pm-checklist.md` as validation framework (sections 4.3, 6.2, 8.2)
 - Systematically evaluate each checklist category:
   - Business Value Alignment
   - Acceptance Criteria Validation  

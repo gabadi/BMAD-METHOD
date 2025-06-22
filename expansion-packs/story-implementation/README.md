@@ -46,8 +46,10 @@ Addresses the complexity gap in agile story implementation by providing:
 - **epic-party-mode-retrospective.md**: Automatic epic retrospective with multi-agent analysis
 
 ### Checklists
-- **story-approval-checklist.md**: Product Owner story validation framework
-- **epic-readiness-checklist.md**: Epic business readiness validation
+- Uses bmad-core checklists via execute-checklist task:
+  - **po-master-checklist.md**: Epic readiness and business validation
+  - **pm-checklist.md**: Story approval and acceptance criteria validation
+  - **story-draft-checklist.md**: Story quality validation
 
 ## Integration with Core BMAD
 
