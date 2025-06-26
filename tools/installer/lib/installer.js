@@ -102,6 +102,17 @@ class Installer {
         spinner.start("Analyzing installation directory...");
       }
 
+      // If this is an update request from early detection, handle it directly
+      if (config.installType === 'update') {
+        const state = await this.detectInstallationState(installDir);
+        if (state.type === 'v4_existing') {
+          return await this.performUpdate(config, installDir, state.manifest, spinner);
+        } else {
+          spinner.fail('No existing v4 installation found to update');
+          throw new Error('No existing v4 installation found');
+        }
+      }
+
       // Detect current state
       const state = await this.detectInstallationState(installDir);
 
@@ -339,7 +350,12 @@ class Installer {
     // Install web bundles if requested
     if (config.includeWebBundles && config.webBundlesDirectory) {
       spinner.text = "Installing web bundles...";
-      await this.installWebBundles(config.webBundlesDirectory, config, spinner);
+      // Resolve web bundles directory using the same logic as the main installation directory
+      const originalCwd = process.env.INIT_CWD || process.env.PWD || process.cwd();
+      let resolvedWebBundlesDir = path.isAbsolute(config.webBundlesDirectory) 
+        ? config.webBundlesDirectory 
+        : path.resolve(originalCwd, config.webBundlesDirectory);
+      await this.installWebBundles(resolvedWebBundlesDir, config, spinner);
     }
 
     // Set up IDE integration if requested
@@ -541,7 +557,8 @@ class Installer {
         installType: manifest.install_type,
         agent: manifest.agent,
         directory: installDir,
-        ide: newConfig.ide || manifest.ide_setup, // Use new IDE choice if provided
+        ide: newConfig?.ide || manifest.ide_setup, // Use new IDE choice if provided
+        ides: newConfig?.ides || manifest.ides_setup || [],
       };
 
       await this.performFreshInstall(config, installDir, spinner);
@@ -596,7 +613,12 @@ class Installer {
     
     if (config.includeWebBundles && config.webBundlesDirectory) {
       const bundleInfo = this.getWebBundleInfo(config);
-      console.log(chalk.green(`✓ Web bundles (${bundleInfo}) installed to: ${config.webBundlesDirectory}`));
+      // Resolve the web bundles directory for display
+      const originalCwd = process.env.INIT_CWD || process.env.PWD || process.cwd();
+      const resolvedWebBundlesDir = path.isAbsolute(config.webBundlesDirectory) 
+        ? config.webBundlesDirectory 
+        : path.resolve(originalCwd, config.webBundlesDirectory);
+      console.log(chalk.green(`✓ Web bundles (${bundleInfo}) installed to: ${resolvedWebBundlesDir}`));
     }
     
     if (ides.length > 0) {

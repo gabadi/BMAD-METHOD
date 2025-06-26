@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const { program } = require('commander');
+const path = require('path');
 
 // Dynamic imports for ES modules
 let chalk, inquirer;
@@ -49,7 +50,7 @@ program
   .option('-t, --team <team>', 'Install specific team with required agents and dependencies')
   .option('-x, --expansion-only', 'Install only expansion packs (no bmad-core)')
   .option('-d, --directory <path>', 'Installation directory (default: .bmad-core)')
-  .option('-i, --ide <ide...>', 'Configure for specific IDE(s) - can specify multiple (cursor, claude-code, windsurf, roo, other)')
+  .option('-i, --ide <ide...>', 'Configure for specific IDE(s) - can specify multiple (cursor, claude-code, windsurf, roo, cline, other)')
   .option('-e, --expansion-packs <packs...>', 'Install specific expansion packs (can specify multiple)')
   .action(async (options) => {
     try {
@@ -57,14 +58,16 @@ program
       if (!options.full && !options.agent && !options.team && !options.expansionOnly) {
         // Interactive mode
         const answers = await promptInstallation();
-        await installer.install(answers);
+        if (!answers._alreadyInstalled) {
+          await installer.install(answers);
+        }
       } else {
         // Direct mode
         let installType = 'full';
         if (options.agent) installType = 'single-agent';
         else if (options.team) installType = 'team';
         else if (options.expansionOnly) installType = 'expansion-only';
-        
+
         const config = {
           installType,
           agent: options.agent,
@@ -158,6 +161,35 @@ async function promptInstallation() {
   ]);
   answers.directory = directory;
 
+  // Check if this is an existing v4 installation
+  const installDir = path.resolve(answers.directory);
+  const state = await installer.detectInstallationState(installDir);
+
+  if (state.type === 'v4_existing') {
+    console.log(chalk.yellow('\n🔍 Found existing BMAD v4 installation'));
+    console.log(`   Directory: ${installDir}`);
+    console.log(`   Version: ${state.manifest?.version || 'Unknown'}`);
+    console.log(`   Installed: ${state.manifest?.installed_at ? new Date(state.manifest.installed_at).toLocaleDateString() : 'Unknown'}`);
+
+    const { shouldUpdate } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'shouldUpdate',
+        message: 'Would you like to update your existing BMAD v4 installation?',
+        default: true
+      }
+    ]);
+
+    if (shouldUpdate) {
+      // Skip other prompts and go directly to update
+      answers.installType = 'update';
+      answers._alreadyInstalled = true; // Flag to prevent double installation
+      await installer.install(answers);
+      return answers; // Return the answers object
+    }
+    // If user doesn't want to update, continue with normal flow
+  }
+
   // Ask for installation type
   const { installType } = await inquirer.prompt([
     {
@@ -224,11 +256,11 @@ async function promptInstallation() {
   if (installType === 'full' || installType === 'team' || installType === 'expansion-only') {
     try {
       const availableExpansionPacks = await installer.getAvailableExpansionPacks();
-      
+
       if (availableExpansionPacks.length > 0) {
         let choices;
         let message;
-        
+
         if (installType === 'expansion-only') {
           message = 'Select expansion packs to install (required):'
           choices = availableExpansionPacks.map(pack => ({
@@ -242,7 +274,7 @@ async function promptInstallation() {
             value: pack.id
           }));
         }
-        
+
         const { expansionPacks } = await inquirer.prompt([
           {
             type: 'checkbox',
@@ -257,7 +289,7 @@ async function promptInstallation() {
             } : undefined
           }
         ]);
-        
+
         // Use selected expansion packs directly
         answers.expansionPacks = expansionPacks;
       } else {
@@ -281,11 +313,12 @@ async function promptInstallation() {
         { name: 'Cursor', value: 'cursor' },
         { name: 'Claude Code', value: 'claude-code' },
         { name: 'Windsurf', value: 'windsurf' },
-        { name: 'Roo Code', value: 'roo' }
+        { name: 'Roo Code', value: 'roo' },
+        { name: 'Cline', value: 'cline' }
       ]
     }
   ]);
-  
+
   // Use selected IDEs directly
   answers.ides = ides;
 
@@ -373,7 +406,7 @@ async function promptInstallation() {
         type: 'input',
         name: 'webBundlesDirectory',
         message: 'Enter directory for web bundles:',
-        default: `${directory}/web-bundles`,
+        default: `${answers.directory}/web-bundles`,
         validate: (input) => {
           if (!input.trim()) {
             return 'Please enter a valid directory path';

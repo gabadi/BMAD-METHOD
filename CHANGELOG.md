@@ -1,3 +1,109 @@
+# [4.14.0](https://github.com/bmadcode/BMAD-METHOD/compare/v4.13.0...v4.14.0) (2025-06-25)
+
+
+### Features
+
+* enhance QA agent as senior developer with code review capabilities and major brownfield improvements ([3af3d33](https://github.com/bmadcode/BMAD-METHOD/commit/3af3d33d4a40586479a382620687fa99a9f6a5f7))
+
+# [4.13.0](https://github.com/bmadcode/BMAD-METHOD/compare/v4.12.0...v4.13.0) (2025-06-24)
+
+
+### Features
+
+* **ide-setup:** add support for Cline IDE and configuration rules ([#262](https://github.com/bmadcode/BMAD-METHOD/issues/262)) ([913dbec](https://github.com/bmadcode/BMAD-METHOD/commit/913dbeced60ad65086df6233086d83a51ead81a9))
+
+# [4.12.0](https://github.com/bmadcode/BMAD-METHOD/compare/v4.11.0...v4.12.0) (2025-06-23)
+
+
+### Features
+
+* **dev-agent:** add quality gates to prevent task completion with failing validations ([#261](https://github.com/bmadcode/BMAD-METHOD/issues/261)) ([45110ff](https://github.com/bmadcode/BMAD-METHOD/commit/45110ffffe6d29cc08e227e22a901892185dfbd2))
+
+# [4.11.0](https://github.com/bmadcode/BMAD-METHOD/compare/v4.10.3...v4.11.0) (2025-06-21)
+
+
+### Bug Fixes
+
+* resolve web bundles directory path when using relative paths in NPX installer ([5c8485d](https://github.com/bmadcode/BMAD-METHOD/commit/5c8485d09ffec60ad4965ced62f4595890cb7535))
+
+
+### Features
+
+* add markdown-tree integration for document sharding ([540578b](https://github.com/bmadcode/BMAD-METHOD/commit/540578b39d1815e41e11f0e87545de3f09ee54e1))
+
+## [4.10.3](https://github.com/bmadcode/BMAD-METHOD/compare/v4.10.2...v4.10.3) (2025-06-20)
+
+
+### Bug Fixes
+
+* bundle update ([2cf3ba1](https://github.com/bmadcode/BMAD-METHOD/commit/2cf3ba1ab8dd7e52584bef16a96e65e7d2513c4f))
+
+## [4.10.2](https://github.com/bmadcode/BMAD-METHOD/compare/v4.10.1...v4.10.2) (2025-06-20)
+
+
+### Bug Fixes
+
+* file formatting ([c78a35f](https://github.com/bmadcode/BMAD-METHOD/commit/c78a35f547459b07a15d94c827ec05921cd21571))
+
+## [4.10.1](https://github.com/bmadcode/BMAD-METHOD/compare/v4.10.0...v4.10.1) (2025-06-20)
+
+
+### Bug Fixes
+
+* SM sometimes would skip the rest of the epic stories, fixed ([1148b32](https://github.com/bmadcode/BMAD-METHOD/commit/1148b32fa97586d2f86d07a70ffbf9bb8c327261))
+
+# [4.10.0](https://github.com/bmadcode/BMAD-METHOD/compare/v4.9.2...v4.10.0) (2025-06-19)
+
+
+### Features
+
+* Core Config and doc sharding is now optional in v4 ([ff6112d](https://github.com/bmadcode/BMAD-METHOD/commit/ff6112d6c2f822ed22c75046f5a14f05e36041c2))
+
+## [4.9.2](https://github.com/bmadcode/BMAD-METHOD/compare/v4.9.1...v4.9.2) (2025-06-19)
+
+
+### Bug Fixes
+
+* bad brownfield yml ([09d2ad6](https://github.com/bmadcode/BMAD-METHOD/commit/09d2ad6aea187996d0a2e1dff27d9bf7e3e6dc06))
+
+## [4.9.1](https://github.com/bmadcode/BMAD-METHOD/compare/v4.9.0...v4.9.1) (2025-06-19)
+
+
+### Bug Fixes
+
+* dist bundles updated ([d9a989d](https://github.com/bmadcode/BMAD-METHOD/commit/d9a989dbe50da62cf598afa07a8588229c56b69c))
+
+# [4.9.0](https://github.com/bmadcode/BMAD-METHOD/compare/v4.8.0...v4.9.0) (2025-06-19)
+
+
+### Features
+
+* dev can use debug log configured in core-config.yml ([0e5aaf0](https://github.com/bmadcode/BMAD-METHOD/commit/0e5aaf07bbc6fd9f2706ea26e35f5f38fd72147a))
+
+# [4.8.0](https://github.com/bmadcode/BMAD-METHOD/compare/v4.7.0...v4.8.0) (2025-06-19)
+
+
+### Bug Fixes
+
+* installer has fast v4 update option now to keep the bmad method up to date with changes easily without breaking any customizations from the user. The SM and DEV are much more configurable to find epics stories and architectureal information when the prd and architecture are deviant from v4 templates and/or have not been sharded. so a config will give the user the option to configure the SM to use the full large documents or the sharded versions! ([aea7f3c](https://github.com/bmadcode/BMAD-METHOD/commit/aea7f3cc86e749d25ed18bed761dc2839023b3b3))
+* prevent double installation when updating v4 ([af0e767](https://github.com/bmadcode/BMAD-METHOD/commit/af0e767ecf1b91d41f114e1a5d7bf5da08de57d6))
+* resolve undefined config properties in performUpdate ([0185e01](https://github.com/bmadcode/BMAD-METHOD/commit/0185e012bb579948a4de1ea3950db4e399761619))
+* update file-manager to properly handle YAML manifest files ([724cdd0](https://github.com/bmadcode/BMAD-METHOD/commit/724cdd07a199cb12b82236ad34ca1a0c61eb43e2))
+
+
+### Features
+
+* add early v4 detection for improved update flow ([29e7bbf](https://github.com/bmadcode/BMAD-METHOD/commit/29e7bbf4c5aa7e17854061a5ee695f44324f307a))
+* add file resolution context for IDE agents ([74d9bb4](https://github.com/bmadcode/BMAD-METHOD/commit/74d9bb4b2b70a341673849a1df704f6eac70c3de))
+* update web builder to remove IDE-specific properties from agent bundles ([2f2a1e7](https://github.com/bmadcode/BMAD-METHOD/commit/2f2a1e72d6a70f8127db6ba58a563d0f289621c3))
+
+# [4.7.0](https://github.com/bmadcode/BMAD-METHOD/compare/v4.6.3...v4.7.0) (2025-06-19)
+
+
+### Features
+
+* extensive bmad-kb for web orchestrator to be much more helpful ([e663a11](https://github.com/bmadcode/BMAD-METHOD/commit/e663a1146b89e7b5078d9726649a51ae5624da46))
+
 ## [4.6.3](https://github.com/bmadcode/BMAD-METHOD/compare/v4.6.2...v4.6.3) (2025-06-19)
 
 

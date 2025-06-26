@@ -11,6 +11,23 @@
 
 ⭐ **If you find this project helpful or useful, please give it a star!** It helps others discover BMAD-METHOD and you will be notified of updates!
 
+## 🔄 Important: Keeping Your BMAD Installation Updated
+
+**Stay up-to-date effortlessly!** If you already have BMAD-METHOD installed in your project, simply run:
+
+```bash
+npx bmad-method install
+```
+
+The installer will:
+
+- ✅ Automatically detect your existing v4 installation
+- ✅ Update only the files that have changed
+- ✅ Create `.bak` backup files for any custom modifications you've made
+- ✅ Preserve your project-specific configurations
+
+This makes it easy to benefit from the latest improvements, bug fixes, and new agents without losing your customizations!
+
 ## 🚀 Quick Start
 
 ### Fastest Start: Web UI (2 minutes) 🏃‍♂️
@@ -155,11 +172,37 @@ The upgrade process will:
 
 After upgrading:
 
-1. Review your documents in the `docs/` folder
-2. Use `@bmad-master` agent to run the `doc-migration-task` to align your documents with V4 templates
-3. If you have separate front-end and backend architecture docs, the migration task will help merge them into a unified `full-stack-architecture.md`
+1. Review your documents in the `docs/` folder - if you had a PRD or architecture in your old project, copy it from the backup to the docs folder if they are not there.
+2. Optionally run the `doc-migration-task` to align your documents with V4 templates - you can do this with your agent my saying something like: 'run {drag in task} against {drag prd or arch file from docs} to align with {drag the template from .bmad-core/templates/full-stack-architecture.md}
+3. If you have separate front-end and backend architecture docs you can modify step 2 to merge both into a single full stack architecture or separate Front and Back end.
 
-**Note**: The agents in `.bmad-core/` fully replace the items in `bmad-agent/`.
+The reason #2 and 3 are optional is because now BMad V4 makes sharding optional for the SM. See [Core Configuration](#-core-configuration-new-in-v4)
+
+**Note**: The agents in `.bmad-core/` fully replace the items in `bmad-agent/` - you can remove the backup folder versions.
+
+### 🔧 Core Configuration (NEW in V4)
+
+**Critical**: V4 introduces `bmad-core/core-config.yml` - a powerful configuration file that enables BMAD to work seamlessly with any project structure, whether it's V4-optimized or legacy. You can even now use non-standard PRDs and architectures!
+
+#### What is core-config.yml?
+
+This configuration file tells BMAD agents exactly where to find your project documents and how they're structured. It's the key to V4's flexibility and backwards compatibility.
+
+#### Key Features
+
+- **Version Awareness**: Agents understand if your PRD/Architecture follows V4 conventions or earlier versions
+- **Flexible Document Locations**: Works whether your epics are embedded in PRD or properly sharded
+- **Developer Context**: Define which files the dev agent should always load
+- **Debug Support**: Built-in logging for troubleshooting story implementation
+
+#### Why It Matters
+
+- **Use BMAD with ANY project structure** - V3, V4, or custom layouts
+- **No forced migrations** - Keep your existing document organization
+- **Customize developer workflow** - Specify exactly which files provide context
+- **Seamless upgrades** - Start with V3 docs and gradually adopt V4 patterns
+
+See the [detailed core-config.yml guide](docs/user-guide.md#core-configuration-coreconfigyml) for configuration examples and best practices.
 
 ## Teams & Workflows
 
@@ -191,14 +234,14 @@ Structured approaches for different scenarios:
 ├── tasks/           # Reusable task definitions
 ├── checklists/      # Quality checklists
 ├── data/            # Knowledge base
-└── web-bundles/     # Pre-built bundles (deprecated - use dist/ instead)
+└── web-bundles/     # Optional can be added if you use the install command and select this folder as a destination for the build bundle files
 
 tools/
 ├── cli.js           # Build tool
 ├── installer/       # NPX installer
 └── lib/             # Build utilities
 
-expansion-packs/     # Optional add-ons (DevOps, Mobile, etc.)
+expansion-packs/     # Domain-specific add-ons (Technical & Non-Technical)
 
 dist/                # 📦 PRE-BUILT BUNDLES (Ready to use!)
 ├── agents/          # Individual agent bundles (.txt files)
@@ -246,12 +289,60 @@ Rich templates for all document types:
 
 Ask the agent you are using for help with /help (in the web) or \*help in the ide to see what commands are available!
 
+## Expansion Packs - Beyond Software Development
+
+BMAD Method's natural language framework isn't limited to software development. Create specialized agents for ANY domain:
+
+### Technical Expansion Packs
+
+- 🎮 **Game Development** - Game designers, level creators, narrative writers
+- 🏗️ **Infrastructure/DevOps** - Cloud architects, security specialists, SRE agents
+- 📱 **Mobile Development** - iOS/Android specialists, UX designers
+- 🔗 **Blockchain/Web3** - Smart contract developers, DeFi architects
+
+### Non-Technical Expansion Packs
+
+- 💼 **Business Strategy** - Strategic planners, market analysts, business coaches
+- 💪 **Health & Wellness** - Fitness coaches, nutrition advisors, meditation guides
+- 🎨 **Creative Arts** - Story writers, world builders, character developers
+- 📚 **Education** - Curriculum designers, tutors, learning coaches
+- 🧠 **Personal Development** - Life coaches, goal setters, habit builders
+- 🏢 **Professional Services** - Legal advisors, medical protocols, research assistants
+
+### Creating Your Own Expansion Pack
+
+The BMAD framework can support any domain where structured AI assistance is valuable:
+
+1. Define specialized agents with domain expertise
+2. Create task procedures for common workflows
+3. Build templates for domain-specific outputs
+4. Package as an expansion pack for others to use
+
+📖 **[Read the full Expansion Packs Guide](docs/expansion-packs.md)** for detailed examples and inspiration!
+
+🛠️ **[Use the Expansion Pack Creator](expansion-packs/expansion-creator/README.md)** to build your own!
+
 ## Contributing
 
-We welcome contributions!
+**We're excited about contributions and welcome your ideas, improvements, and expansion packs!** 🎉
 
-- 🆕 **New to GitHub?** Start with our [Pull Request Guide](docs/how-to-contribute-with-pull-requests.md)
-- See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines
+### Before Contributing - MUST READ
+
+To ensure your contribution aligns with the BMAD Method and gets merged smoothly:
+
+1. 📋 **Read [CONTRIBUTING.md](CONTRIBUTING.md)** - Our contribution guidelines, PR requirements, and process
+2. 🎯 **Read [GUIDING-PRINCIPLES.md](GUIDING-PRINCIPLES.md)** - Core principles that keep BMAD powerful through simplicity
+3. 🆕 **New to GitHub?** Start with our [Pull Request Guide](docs/how-to-contribute-with-pull-requests.md)
+
+### Key Points to Remember
+
+- Keep dev agents lean (save context for coding!)
+- Use small, focused files over large branching ones
+- Reuse existing tasks (like `create-doc`) instead of creating duplicates
+- Consider expansion packs for domain-specific features
+- All contributions must follow our natural language, markdown-based approach
+
+We're building something amazing together - let's keep it simple, powerful, and focused! 💪
 
 ### Development Setup
 
@@ -267,10 +358,12 @@ npm install
 
 - 🏗️ [Core Architecture](docs/core-architecture.md) - Complete technical architecture and system design
 - 📖 [User Guide](docs/user-guide.md) - Comprehensive guide to using BMAD-METHOD effectively
+- 🚀 [Expansion Packs Guide](docs/expansion-packs.md) - Extend BMAD to any domain beyond software development
 
 ### Workflow Guides
 
 - 📚 [Universal BMAD Workflow Guide](docs/bmad-workflow-guide.md) - Core workflow that applies to all IDEs
+- 🏗️ [Working in the Brownfield Guide](docs/working-in-the-brownfield.md) - Complete guide for enhancing existing projects
 - 🎯 [Cursor Guide](docs/cursor-guide.md) - Complete workflow for Cursor users
 - 🤖 [Claude Code Guide](docs/claude-code-guide.md) - Complete workflow for Claude Code users
 - 🌊 [Windsurf Guide](docs/windsurf-guide.md) - Complete workflow for Windsurf users
