@@ -244,15 +244,13 @@ workflow:
       
     - step: round1_qa_review
       agent: qa
-      action: execute-checklist
+      action: review-story
       requires: pre_review_validation
       inputs:
         - story_file
       outputs:
         - qa_review_shard  # Direct to shard: epic{N}.story{N}.qa-review.md
-      checklist: story-dod-checklist.md
-      notes: "REQUIRED: Use Task tool for execution - Round 1 - QA validates implementation quality and completeness. Write results directly to QA review shard for parallel processing."
-      checklist_completion_tracking: true
+      notes: "REQUIRED: Use Task tool for execution - Round 1 - Senior developer code review with refactoring capability. Write results directly to QA review shard for parallel processing."
       
     - step: round1_ux_review
       agent: ux-expert

@@ -101,25 +101,23 @@ workflow:
       story_status_update: "Review"
       checklist_completion_tracking: true
       
-    - step: architect_review
-      agent: architect
-      action: execute-checklist
+    - step: technical_review
+      agent: qa
+      action: review-story
       requires: pre_review_validation
       inputs:
         - story_file
-      checklist: story-dod-checklist.md
-      notes: "REQUIRED: Use Task tool for execution - Single specialist review for simple changes - validates technical design and implementation"
-      checklist_completion_tracking: true
+      notes: "REQUIRED: Use Task tool for execution - Senior developer code review with direct refactoring capability for simple changes"
       
     - step: implement_fixes
       agent: dev
       action: implement-consolidated-fixes
-      requires: architect_review
+      requires: technical_review
       inputs:
         - story_file
-        - architect_feedback
-      condition: "if_architect_review_has_issues"
-      notes: "REQUIRED: Use Task tool for execution - Implement fixes from architect review if issues identified"
+        - technical_feedback
+      condition: "if_technical_review_has_issues"
+      notes: "REQUIRED: Use Task tool for execution - Implement fixes from senior developer review if issues identified"
       
     - step: validate_fixes
       agent: architect
@@ -136,7 +134,7 @@ workflow:
     - step: capture_basic_learning
       agent: architect
       action: capture-learning-triage
-      requires: [architect_review, validate_fixes]
+      requires: [technical_review, validate_fixes]
       inputs:
         - story_file
         - review_feedback
@@ -183,7 +181,7 @@ workflow:
     - Story approved for development (epic validation may be skipped if recent)
     - Story implementation completed with all validations passing
     - Pre-review validation confirms project quality gates pass
-    - Single architect review validates technical implementation
+    - Single senior developer review validates technical implementation with refactoring
     - Any identified issues are resolved and validated
     - Learning extraction completed with basic triage
     - Implementation committed with comprehensive context
@@ -209,9 +207,9 @@ workflow:
       - Retry: "Re-run pre_review_validation after fixes"
       - Max_retries: 5
       
-    architect_review_failure:
-      - Issue: "Technical design or implementation issues identified"
-      - Action: "Dev implements architect feedback through implement_fixes step"
+    technical_review_failure:
+      - Issue: "Technical design or implementation issues identified by senior developer"
+      - Action: "Dev implements senior developer feedback through implement_fixes step"
       - Retry: "Proceed to implement_fixes (no retry at review level)"
       - Notes: "Review outcome flows to fix implementation regardless of pass/fail"
       
@@ -299,9 +297,9 @@ workflow:
   handoff_prompts:
     po_validate_story: "Validate story {epic_number}.{story_number} readiness - may skip epic validation if same epic validated within 7 days"
     dev_implement: "Story approved. Implement story {epic_number}.{story_number} with validation (project quality gates required)"
-    pre_review: "Implementation complete. Run final validation before architect review - ensure project quality gates pass"
-    architect_review: "Pre-review passed. Conduct technical design and implementation review for simple story"
-    implement_fixes: "Architect review complete. Implement any identified fixes and document changes in story"
+    pre_review: "Implementation complete. Run final validation before senior developer review - ensure project quality gates pass"
+    technical_review: "Pre-review passed. Conduct senior developer code review with refactoring capability for simple story"
+    implement_fixes: "Senior developer review complete. Implement any identified fixes and document changes in story"
     validate_fixes: "Fixes implemented. Validate fixes using story documentation"
     capture_learning: "Implementation validated. Extract learnings into structured categories for simple story context"
     commit_prepare: "Learning extraction complete. Commit implementation changes and prepare comprehensive PR context"
