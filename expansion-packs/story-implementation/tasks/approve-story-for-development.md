@@ -8,6 +8,7 @@ Product Owner validation and approval of story for development readiness.
 
 - `story_file`: Path to the story file requiring approval
 - `epic_number`: Epic number for alignment validation
+- `approval_threshold`: Minimum approval percentage required (e.g., 90)
 
 ## Outputs
 
@@ -41,37 +42,46 @@ Check essential approval criteria:
 
 ### Step 3: Make Approval Decision (1 minute)
 
-**If story is ready:**
+**CRITICAL: Story must achieve minimum {approval_threshold}% approval threshold to proceed to development.**
+
+Evaluate overall story readiness score based on validation criteria:
+
+- Business alignment: Pass/Fail
+- Development readiness: Pass/Fail
+- All acceptance criteria clear: Pass/Fail
+- Scope appropriateness: Pass/Fail
+- Dependencies identified: Pass/Fail
+
+**Minimum {approval_threshold}% ({approval_threshold \* 5 / 100}/5) criteria must pass for approval.**
+
+**If story meets {approval_threshold}% threshold:**
 Update story file:
 
 ```markdown
 ## Story Approved for Development
 
-**Status:** Approved
+**Status:** Approved ({approval_threshold}%+ threshold met)
 **Approved by:** PO
 **Ready for:** Development
+**Approval Score:** [X/5 criteria passed]
 ```
 
-**If story needs revision:**
-Create `{approval_notes_file}`:
+**If story falls below {approval_threshold}% threshold:**
+Create `{approval_notes_file}` and mark as NEEDS_REVISION:
 
 ```markdown
 ## Story Approval Issues
 
-### Business Issues
+**Approval Score:** [X/5 criteria passed] - **Below {approval_threshold}% threshold**
 
-- [Specific business alignment problem]
-- [Value proposition unclear]
+### Failed Criteria
 
-### Requirements Issues
+- [List specific criteria that failed]
+- [Include actionable guidance for each]
 
-- [Ambiguous acceptance criteria]
-- [Missing requirements]
+### Required Actions
 
-### Scope Issues
-
-- [Story too large/complex]
-- [Dependencies not identified]
+- [Specific steps to reach {approval_threshold}% threshold]
 ```
 
 **Max 15 lines. Focus on specific issues to fix, not approval process details.**

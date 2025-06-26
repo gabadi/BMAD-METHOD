@@ -98,10 +98,12 @@ workflow:
       inputs:
         - story_file
         - epic_number
+        - approval_threshold: 90
       outputs:
         - approval_status
         - approval_notes (if needed)
-      notes: "REQUIRED: Use Task tool for execution - Product Owner validates business value and approves for development"
+      success_criteria: "CRITICAL: Story must achieve minimum 90% approval threshold (4.5/5 validation criteria) to proceed to development"
+      notes: "REQUIRED: Use Task tool for execution - Product Owner validates business value and approves for development with 90% threshold requirement"
       story_status_update: "Approved"
       
     - step: environment_setup

@@ -96,8 +96,10 @@ workflow:
       inputs:
         - epic_number
         - story_number
+        - approval_threshold: 90
       condition: "skip_epic_validation_if_same_epic_within_7_days"
-      notes: "REQUIRED: Use Task tool for execution - Validate story readiness, skip epic validation if same epic validated within 7 days"
+      success_criteria: "CRITICAL: Story must achieve minimum 90% approval threshold (4.5/5 validation criteria) to proceed to development"
+      notes: "REQUIRED: Use Task tool for execution - Validate story readiness with 90% threshold requirement, skip epic validation if same epic validated within 7 days"
       story_status_update: "Approved"
       
     - step: implement_story
