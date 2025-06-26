@@ -18,6 +18,14 @@ Product Owner validation and approval of story for development readiness.
 
 ## Instructions
 
+### Workspace Enforcement
+
+**CRITICAL**: All temporary files MUST be created using workflow variables:
+
+- Use `{approval_notes_file}` for approval issues
+- NEVER create files outside designated workspace
+- Pattern: Workflow variables resolve to `{temp_folder}` directory
+
 ### Step 1: Load Story and Epic Context (1-2 minutes)
 
 - Read the complete story file

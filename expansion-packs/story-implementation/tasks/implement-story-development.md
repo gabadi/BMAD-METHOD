@@ -21,6 +21,15 @@ Implement story requirements and document technical decisions made during implem
 
 ## Instructions
 
+### Workspace Enforcement
+
+**CRITICAL**: All temporary files MUST be created in the designated workspace:
+
+- Use workflow variables: `{temp_folder}`, `{issues_file}`, `{decisions_file}`, etc.
+- NEVER create files outside of `{temp_folder}` directory
+- File pattern: `{temp_folder}filename.md` where filename describes purpose
+- Example: `{temp_folder}config-validation-epic{epic_number}-story{story_number}.md`
+
 ### Step 1: Implement Acceptance Criteria (Main work)
 
 Read story file and implement all acceptance criteria:
@@ -46,6 +55,27 @@ Run project quality validation:
 - Test suite
 - Linting/formatting
 - Any project-specific checks
+- Configuration AC validation (if story involves config changes)
+
+#### Configuration AC Validation Process
+
+When story involves configuration changes (ESLint, package.json, environment variables, etc.):
+
+1. **Extract config-related acceptance criteria** from story file
+2. **Verify each config AC** against actual implementation:
+   - ESLint rules: Check configuration matches AC requirements
+   - Package dependencies: Verify additions/changes match AC specifications
+   - Environment variables: Confirm settings match AC requirements
+   - Build configuration: Validate settings match AC requirements
+3. **Document any AC-config mismatches** as blocking issues
+4. **Include config validation status** in quality_gates_status output
+
+**Example AC patterns to validate:**
+
+- "ESLint must enforce X rule"
+- "Add dependency Y for feature Z"
+- "Environment variable X must be set to Y"
+- "Build process must include step Z"
 
 ### Step 4: Structure Implementation Output
 
@@ -82,6 +112,11 @@ quality_gates_status:
   tests: "PASS"
   linting: "PASS"
   coverage: "95%"
+  configuration_ac_validation: "PASS" # Added when config changes involved
+  config_ac_details: # Added when config changes involved
+    - ac: "ESLint no-console rule in production"
+      status: "VERIFIED"
+      config_location: ".eslintrc.js"
 ```
 
 ## Success Criteria
