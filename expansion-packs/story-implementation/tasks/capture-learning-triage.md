@@ -99,17 +99,17 @@ Before generating ANY learning items, mandatory verification:
    - Test existing automation capabilities before suggesting new ones
    - Document what already works vs what's assumed missing
 
-2. **Workflow Boundary Validation:**
-   - Identify what workflows were actually used in this story
+2. **Implementation Approach Validation:**
+   - Identify what implementation methods were actually used in this story
    - Review existing build/test/deployment scripts
-   - Validate current workflow execution paths
+   - Validate current implementation execution paths
    - Focus only on gaps exposed during THIS story execution
 
 **Evidence-First Validation Framework:**
 For each potential learning item, validate:
 
 1. **Specific Problem Encountered:** "What exact issue occurred during story implementation?"
-2. **Scope Boundary Check:** "Was this issue within the story workflow execution?"
+2. **Scope Boundary Check:** "Was this issue within the story implementation approach?"
 3. **Current State Audit:** "What existing tools/processes already address this?"
 4. **Solution Proportionality:** "Is proposed solution proportional to specific problem?"
 5. **Evidence Requirement:** "What concrete evidence supports this need?"
@@ -124,23 +124,23 @@ For each potential learning item, validate:
 ✅ Patterns discovered during coding
 ✅ Team capabilities revealed during execution
 ✅ Methodology decisions that created problems during execution
-✅ Workflow selection issues revealed through story completion
+✅ Approach selection issues revealed through story completion
 
 **INVALID Learning Item Scope (REJECT IMMEDIATELY):**
 ❌ General process improvements not related to story
 ❌ Tooling enhancements without evidence of problems
-❌ Workflow enhancements not used in story execution
+❌ Implementation method enhancements not used in story execution
 ❌ Preventive measures without specific incidents
 ❌ Security tooling suggestions beyond specific findings
-❌ Automation suggestions for workflows not used in this story
+❌ Automation suggestions for implementation methods not used in this story
 ❌ Methodology critiques without story execution evidence
-❌ Workflow changes without proven alternative effectiveness
+❌ Approach changes without proven alternative effectiveness
 
 **Rejection Criteria:**
 
 - Any validation fails → REJECT item
 - Theoretical problems without evidence → REJECT
-- Solutions outside story workflow scope → REJECT
+- Solutions outside story implementation scope → REJECT
 - Over-engineered responses to simple issues → REJECT
 - Assumptions about missing capabilities → REJECT
 

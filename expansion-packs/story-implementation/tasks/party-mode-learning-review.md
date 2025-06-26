@@ -57,13 +57,13 @@ SETUP:
 
 **Scrum Master MUST Challenge:**
 
-- "Did this problem occur within our current workflow boundaries?"
+- "Did this problem occur within our current implementation boundaries?"
 - "Is this learning item scope-appropriate for story retrospective?"
 - "Would this solution have prevented actual delays in THIS story?"
 - "Are we solving a real problem or creating busywork?"
-- "Was this within our actual workflow execution?"
-- "Was the workflow selection appropriate for this story's complexity?"
-- "Would a different process approach have reduced friction?"
+- "Was this within our actual implementation execution?"
+- "Was the implementation approach selection appropriate for this story's complexity?"
+- "Would a different development method have reduced friction?"
 
 **Developer MUST Challenge:**
 
@@ -89,7 +89,7 @@ SETUP:
 Each agent must require:
 
 - Specific evidence for problem claims
-- Scope validation within story boundaries
+- Scope validation within story implementation boundaries
 - Effort justification for solutions
 - Technical proportionality assessment
 - Current state validation before new suggestions
@@ -109,7 +109,7 @@ Learning Item Acceptance Criteria:
 
 - Any agent challenges scope without satisfactory evidence → REJECT
 - Solution disproportionate to problem (Architect veto) → REJECT
-- Outside workflow boundaries (Scrum Master veto) → REJECT
+- Outside implementation boundaries (Scrum Master veto) → REJECT
 - No business value justification (Product Owner veto) → REJECT
 - No evidence of actual problem (Developer veto) → REJECT
 

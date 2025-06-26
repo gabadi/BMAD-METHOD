@@ -32,16 +32,16 @@ Conduct comprehensive epic retrospective with all key stakeholders to consolidat
 
 ### Epic-Level Methodology Decision Patterns
 
-**Workflow Selection Analysis:**
+**Implementation Approach Analysis:**
 
-- Review all story workflow choices (story-simple vs story-implementation)
+- Review all story implementation approach choices
 - Identify patterns of appropriate vs inappropriate selections
 - Document methodology decision effectiveness across epic
 
 **Tool Selection Analysis:**
 
-- Review all core task usage (review-story, execute-checklist, etc.)
-- Identify patterns of effective vs ineffective tool choices
+- Review all core task usage and tool choices
+- Identify patterns of effective vs ineffective tool selections
 - Document tool selection methodology across epic
 
 **Agent Assignment Analysis:**
