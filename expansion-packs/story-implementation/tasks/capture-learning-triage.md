@@ -87,7 +87,66 @@ CONTEXT_REVIEW:
 - Key technical challenges: [List top 3]
 ```
 
-### Step 2: Evidence-First Learning Extraction (MANDATORY VALIDATION)
+### Step 2: Documentation Value Validation (MANDATORY)
+
+**Before generating ANY learning items, apply value-first validation:**
+
+#### Documentation Value Test (MANDATORY for each item)
+
+1. **Unique Value Test:**
+
+   - Question: "What information does this contain not available in story files?"
+   - Required: Specific evidence of unique value
+   - Rejection: If derivable from existing sources
+
+2. **Decision Impact Test:**
+
+   - Question: "What decisions does this enable that can't be made from story references?"
+   - Required: Clear decision-making value
+   - Rejection: If no actionable decisions enabled
+
+3. **Maintenance Cost Test:**
+
+   - Question: "What effort is required to keep this current vs. its value?"
+   - Required: Justification of maintenance overhead
+   - Rejection: If maintenance cost > decision value
+
+4. **Single Source Truth Test:**
+   - Question: "Can this information be calculated/derived instead of tracked?"
+   - Required: Validation that manual tracking is necessary
+   - Rejection: If calculable from existing data
+
+#### Evidence-First Learning Framework
+
+For each potential learning item:
+
+```
+VALIDATION_CHECKLIST:
+□ Specific problem occurred during THIS story implementation
+□ Evidence provided (not theoretical)
+□ Within story implementation scope (not general improvements)
+□ Solution proportional to actual problem encountered
+□ Not derivable from existing story documentation
+□ Actionable decision enabled by this information
+□ Maintenance effort justified by decision value
+
+REJECTION_TRIGGERS:
+❌ Theoretical problems without evidence
+❌ General improvements not tied to story issues
+❌ Information duplicating existing sources
+❌ Solutions disproportionate to problems
+❌ Maintenance overhead without decision value
+```
+
+**Learning Item Acceptance Criteria:**
+
+- ALL validation checks must pass
+- Evidence-based problem identification
+- Proportional solution to actual issue
+- Unique value not available elsewhere
+- Passes documentation value test
+
+### Step 3: Evidence-First Learning Extraction (MANDATORY VALIDATION)
 
 **CRITICAL FIRST STEP - Current State Audit:**
 Before generating ANY learning items, mandatory verification:
@@ -152,7 +211,7 @@ For each potential learning item, validate:
 - Time/effort variance patterns (with current state audit)
 - Technical decision points (with boundary validation)
 
-### Step 3: Triage and Prioritize
+### Step 4: Triage and Prioritize
 
 ```
 TRIAGE_MATRIX:
@@ -161,7 +220,7 @@ Medium Priority: Improves quality/efficiency, affects future work
 Low Priority: Nice-to-have improvements, long-term optimization
 ```
 
-### Step 4: Assign Owners and Timelines
+### Step 5: Assign Owners and Timelines
 
 ```
 OWNERSHIP_ASSIGNMENT:
@@ -175,11 +234,14 @@ OWNERSHIP_ASSIGNMENT:
 ## Success Criteria
 
 - [ ] All learning categories reviewed and populated
+- [ ] Documentation value validation completed for each item
+- [ ] Evidence-based problem identification for all items
 - [ ] Each item under 50 tokens with clear action owner
 - [ ] Priority and timeline assigned to each item
 - [ ] Immediate actions (URGENT_FIX) clearly identified
 - [ ] Future epic candidates captured with business value
 - [ ] Learning items added to story file under ## Learning Triage
+- [ ] All items pass documentation value test (unique value, decision impact, maintenance justification)
 
 ## Evidence Documentation
 

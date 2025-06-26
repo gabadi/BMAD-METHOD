@@ -153,28 +153,17 @@ workflow:
       notes: "REQUIRED: Use Task tool for execution - Commit implementation changes and prepare comprehensive PR context"
       story_status_update: "Changes Committed"
       
-    - step: update_epic_progress
-      agent: sm
-      action: update-epic-progress
-      requires: commit_and_prepare_pr
-      inputs:
-        - story_file
-        - epic_number
-        - commit_information
-        - learning_items
-      notes: "REQUIRED: Use Task tool for execution - Update epic progress tracking before PR creation"
-      story_status_update: "Epic Progress Updated"
-      
     - step: create_comprehensive_pr
       agent: po
       action: create-comprehensive-pr
-      requires: update_epic_progress
+      requires: commit_and_prepare_pr
       inputs:
         - story_file
         - commit_information
         - pr_context
-        - epic_progress_update
-      notes: "REQUIRED: Use Task tool for execution - Create PR with business summary, technical changes, and learning extraction"
+        - learning_items
+        - epic_number
+      notes: "REQUIRED: Use Task tool for execution - Create PR with business summary, technical changes, learning extraction, and auto-calculate epic completion status"
       story_status_update: "Done - Delivered"
 
   success_criteria:
@@ -185,7 +174,7 @@ workflow:
     - Any identified issues are resolved and validated
     - Learning extraction completed with basic triage
     - Implementation committed with comprehensive context
-    - Epic progress updated with story completion
+    - Epic completion status auto-calculated during PR creation
     - PR created with business summary and technical details
     - Story status updated to "Done - Delivered"
 
@@ -234,19 +223,12 @@ workflow:
       - Max_retries: 3
       - Notes: "Ensure all quality gates pass before commit"
       
-    epic_progress_failure:
-      - Issue: "Epic progress update fails or tracking incomplete"
-      - Action: "SM addresses epic file issues and completes progress tracking"
-      - Retry: "Re-run update_epic_progress after resolving tracking issues"
-      - Max_retries: 2
-      - Notes: "Ensure learning integration before PR creation"
-      
     pr_creation_failure:
       - Issue: "PR creation fails or context incomplete"
       - Action: "PO addresses GitHub/PR platform issues and completes description"
       - Retry: "Re-run create_comprehensive_pr after resolving platform issues"
       - Max_retries: 3
-      - Notes: "Ensure comprehensive business and technical context"
+      - Notes: "Ensure comprehensive business and technical context, and epic completion auto-calculation"
 
   complexity_validation:
     simple_story_indicators:
@@ -303,6 +285,5 @@ workflow:
     validate_fixes: "Fixes implemented. Validate fixes using story documentation"
     capture_learning: "Implementation validated. Extract learnings into structured categories for simple story context"
     commit_prepare: "Learning extraction complete. Commit implementation changes and prepare comprehensive PR context"
-    update_epic: "Implementation committed. Update epic progress tracking before PR creation"
-    create_pr: "Epic progress updated. Create PR with business summary, technical changes, and learning extraction"
-    workflow_complete: "Story {epic_number}.{story_number} delivered via simple workflow. Epic progress updated with learning integration."
+    create_pr: "Implementation committed. Create PR with business summary, technical changes, learning extraction, and auto-calculate epic completion status"
+    workflow_complete: "Story {epic_number}.{story_number} delivered via simple workflow. Epic completion status auto-calculated. Retrospective: {TRIGGERED/NOT_TRIGGERED} based on completion detection."

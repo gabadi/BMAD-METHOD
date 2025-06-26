@@ -363,36 +363,22 @@ workflow:
         - review_shard  # Learning insights
       outputs:
         - pr_info_shard  # Direct to shard: epic{N}.story{N}.pr-info.md
-      notes: "REQUIRED: Use Task tool for execution - Create PR from PR context shard with business summary, technical changes, and learning extraction. Write PR details to dedicated shard."
-      story_status_update: "PR Created"
-      
-    - step: update_epic_progress
-      agent: sm
-      action: update-epic-progress
-      requires: create_comprehensive_pr
-      inputs:
-        - story_file  # Main story context with epic number
-        - pr_info_shard  # PR details
-        - review_shard  # Learning items for integration
-      outputs:
-        - epic_file  # Updated with story progress
-      notes: "REQUIRED: Use Task tool for execution - Update epic progress tracking from story and dedicated shards. Schedule learning integration from learning review shard."
+      notes: "REQUIRED: Use Task tool for execution - Create PR from PR context shard with business summary, technical changes, learning extraction, and auto-calculate epic completion status for retrospective triggering. Write PR details to dedicated shard."
       story_status_update: "Done - Delivered"
       
     - step: epic_retrospective
       agent: sm
       action: epic-party-mode-retrospective
-      requires: update_epic_progress
+      requires: create_comprehensive_pr
       inputs:
         - epic_number
-        - epic_completion_status
-        - all_story_files
-        - consolidated_learning_items
-        - epic_metrics
-      condition: epic_completion_status == "100%"
+        - story_file
+        - pr_info_shard
+        - review_shard
+      condition: "epic_completion_auto_calculated == 100%"
       collaborators: [architect, po, dev, ux-expert]
-      notes: "REQUIRED: Use Task tool for execution - MANDATORY: Epic retrospective triggered automatically when epic reaches 100% completion"
-      story_status_update: "Epic Complete - Retrospective Done"
+      notes: "REQUIRED: Use Task tool for execution - MANDATORY: Epic retrospective triggered automatically when epic reaches 100% completion (auto-calculated from story completion status)"
+      story_status_update: "Done - Delivered (Epic Complete - Retrospective Done if epic 100%)"
 
   success_criteria:
     - Epic readiness validated and approved for story creation
@@ -410,8 +396,8 @@ workflow:
     - Learning extraction completed with structured triage and team review
     - Implementation committed with comprehensive context
     - PR created with business summary, technical changes, and learning insights
-    - Epic progress updated with story completion and learning integration
-    - MANDATORY: Epic retrospective executed when epic reaches 100% completion
+    - Epic completion status auto-calculated during PR creation
+    - MANDATORY: Epic retrospective executed when epic reaches 100% completion (auto-calculated)
     - Epic-level strategic insights and patterns identified through multi-agent collaboration
     - Next epic preparation actions defined with clear ownership
     - Story status updated to "Done - Delivered" ("Epic Complete - Retrospective Done" if epic complete)
@@ -498,14 +484,8 @@ workflow:
       - Action: "PO addresses GitHub/PR platform issues and completes description"
       - Retry: "Re-run create_comprehensive_pr after resolving platform issues"
       - Max_retries: 3
-      - Notes: "Ensure comprehensive business and technical context"
+      - Notes: "Ensure comprehensive business and technical context, and epic completion auto-calculation"
       
-    epic_progress_failure:
-      - Issue: "Epic progress update fails or tracking incomplete"
-      - Action: "SM addresses epic file issues and completes progress tracking"
-      - Retry: "Re-run update_epic_progress after resolving tracking issues"
-      - Max_retries: 2
-      - Notes: "Ensure learning integration and next story readiness assessment"
 
   dependencies:
     core_bmad_agents:
@@ -535,7 +515,6 @@ workflow:
       - party-mode-learning-review
       - commit-and-prepare-pr
       - create-comprehensive-pr
-      - update-epic-progress
       - epic-party-mode-retrospective
     expansion_checklists: []
 
@@ -555,7 +534,6 @@ workflow:
     capture_learning: "Implementation validated. SM extracts learnings from entire story process with neutral perspective across all domains"
     party_review: "Learning triage complete. SM facilitates collaborative team review with architect providing key technical input to achieve consensus"
     commit_prepare: "Learning review complete. Commit implementation changes and prepare comprehensive PR context"
-    create_pr: "Implementation committed. Create PR with business summary, technical changes, and learning extraction"
-    update_epic: "PR created. Update epic progress tracking and schedule learning integration. Checking epic completion status for MANDATORY epic retrospective."
-    epic_retrospective: "Epic {epic_number} complete (100%). SM MUST facilitate multi-agent retrospective for strategic process insights and next epic preparation. This is MANDATORY and integral to the process."
-    workflow_complete: "Story {epic_number}.{story_number} delivered. Epic retrospective status: {COMPLETED/NOT_TRIGGERED} based on epic completion (100% triggers MANDATORY retrospective)."
+    create_pr: "Implementation committed. Create PR with business summary, technical changes, learning extraction, and auto-calculate epic completion for mandatory retrospective triggering"
+    epic_retrospective: "Epic {epic_number} auto-detected as complete (100%). SM facilitates mandatory retrospective using calculated metrics and story references (no duplicate tracking)."
+    workflow_complete: "Story delivered. Epic retrospective: {COMPLETED/NOT_TRIGGERED} based on auto-calculated completion status."

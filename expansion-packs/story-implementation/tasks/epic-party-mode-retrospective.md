@@ -66,153 +66,68 @@ Conduct comprehensive epic retrospective with all key stakeholders to consolidat
 
 ## Execution Steps
 
-### Step 1: Epic Data Consolidation (10 minutes)
+### Step 1: Epic Data Auto-Calculation (5 minutes)
 
 **Agent:** sm (Epic Retrospective Facilitator)  
-Lead epic data consolidation with strategic focus on process insights:
+Calculate epic metrics from existing story files:
 
 ```markdown
-# Epic {epic_number} Retrospective Data
+# Epic {epic_number} Retrospective Data (Auto-Calculated)
 
-## Epic Overview
+## Epic Overview (Derived)
 
-- **Epic Title:** {epic_title}
-- **Duration:** {start_date} to {completion_date} ({total_days} days)
-- **Stories Completed:** {story_count}
-- **Team Members:** {team_member_list}
+- **Epic Title:** {from_epic_file}
+- **Duration:** {first_story_date} to {last_story_completion} ({calculated_days} days)
+- **Stories Completed:** {count_done_stories}
+- **Team Members:** {extract_from_story_authors}
 
-## Epic Metrics Summary
+## Epic Metrics (Calculated)
 
-- **Total Story Points:** {total_story_points}
-- **Velocity:** {average_velocity} points/sprint
-- **Quality Score:** {average_quality_score}/10
-- **Review Rounds:** {average_review_rounds}
-- **Fix Cycles:** {average_fix_cycles}
+- **Total Story Points:** {sum_from_stories}
+- **Average Quality Score:** {average_quality_from_stories}/10
+- **Average Review Rounds:** {calculated_from_stories}
+- **Learning Items by Category:** {reference_story_learning_sections}
 
-## Learning Items by Category
+## Learning Data Sources (Referenced)
 
-### ARCH_CHANGE ({arch_count} items)
+- **Story Learning Files:** {list_story_files_with_learning}
+- **Epic Candidates:** {aggregate_future_epic_items}
+- **Process Improvements:** {aggregate_process_items}
+- **Architecture Items:** {aggregate_arch_items}
 
-- {arch_item_1} | Stories: {story_list} | Priority: {HIGH/MEDIUM/LOW}
-- {arch_item_2} | Stories: {story_list} | Priority: {HIGH/MEDIUM/LOW}
-
-### FUTURE_EPIC ({future_count} items)
-
-- {future_item_1} | Stories: {story_list} | Est: {effort_estimate}
-- {future_item_2} | Stories: {story_list} | Est: {effort_estimate}
-
-### URGENT_FIX ({urgent_count} items)
-
-- {urgent_item_1} | Stories: {story_list} | Criticality: {HIGH/MEDIUM/LOW}
-- {urgent_item_2} | Stories: {story_list} | Criticality: {HIGH/MEDIUM/LOW}
-
-### PROCESS_IMPROVEMENT ({process_count} items)
-
-- {process_item_1} | Stories: {story_list} | Impact: {HIGH/MEDIUM/LOW}
-- {process_item_2} | Stories: {story_list} | Impact: {HIGH/MEDIUM/LOW}
-
-### TOOLING ({tooling_count} items)
-
-- {tooling_item_1} | Stories: {story_list} | Complexity: {HIGH/MEDIUM/LOW}
-- {tooling_item_2} | Stories: {story_list} | Complexity: {HIGH/MEDIUM/LOW}
-
-### KNOWLEDGE_GAP ({knowledge_count} items)
-
-- {knowledge_item_1} | Stories: {story_list} | Training: {needed/available}
-- {knowledge_item_2} | Stories: {story_list} | Training: {needed/available}
+**Data Source:** Story files (Referenced, not duplicated)
+**Calculation Method:** Automated aggregation from story completion data
 ```
 
-### Step 2: Multi-Agent Pattern Analysis (15 minutes)
+### Step 2: Value-Focused Pattern Analysis (10 minutes)
 
-**Agents:** architect, po, dev, ux-expert (in parallel)
+**Question Framework for Each Agent:**
 
 #### Architect Analysis
 
-```markdown
-## Technical Patterns Identified
-
-### Positive Patterns
-
-- **{pattern_1}:** Appeared in {story_count} stories | Impact: {impact_description}
-- **{pattern_2}:** Appeared in {story_count} stories | Impact: {impact_description}
-
-### Negative Patterns
-
-- **{anti_pattern_1}:** Appeared in {story_count} stories | Risk: {risk_description}
-- **{anti_pattern_2}:** Appeared in {story_count} stories | Risk: {risk_description}
-
-### Architecture Evolution
-
-- **Debt Accumulated:** {debt_items} items requiring attention
-- **Quality Improvements:** {improvement_items} implemented
-- **Technical Decisions:** {decision_count} major decisions made
-```
+- "What architecture patterns ACTUALLY emerged across {story_count} stories?"
+- "Which technical decisions had MEASURABLE impact on story velocity?"
+- "What architecture debt ACTUALLY blocked story completion?"
 
 #### Product Owner Analysis
 
-```markdown
-## Business Value Patterns
-
-### Value Delivery Patterns
-
-- **{value_pattern_1}:** Generated {business_impact} | Stories: {story_list}
-- **{value_pattern_2}:** Generated {business_impact} | Stories: {story_list}
-
-### User Impact Patterns
-
-- **{user_pattern_1}:** Affected {user_count} users | Feedback: {feedback_summary}
-- **{user_pattern_2}:** Affected {user_count} users | Feedback: {feedback_summary}
-
-### Business Learning
-
-- **Market Response:** {response_summary}
-- **Feature Adoption:** {adoption_metrics}
-- **Value Realization:** {actual_vs_expected}
-```
+- "What business value patterns delivered MEASURABLE user impact?"
+- "Which stories generated actual user feedback or metrics?"
+- "What business learning has ACTIONABLE next steps?"
 
 #### Developer Analysis
 
-```markdown
-## Implementation Patterns
-
-### Efficiency Patterns
-
-- **{efficiency_pattern_1}:** Reduced effort by {time_saved} | Stories: {story_list}
-- **{efficiency_pattern_2}:** Increased effort by {time_added} | Stories: {story_list}
-
-### Quality Patterns
-
-- **{quality_pattern_1}:** Improved quality score by {score_improvement} | Stories: {story_list}
-- **{quality_pattern_2}:** Required {fix_cycles} fix cycles | Stories: {story_list}
-
-### Technical Debt Impact
-
-- **Debt Created:** {new_debt_items} items
-- **Debt Resolved:** {resolved_debt_items} items
-- **Net Debt Change:** {net_change}
-```
+- "What implementation patterns ACTUALLY reduced/increased effort?"
+- "Which technical choices had MEASURABLE quality impact?"
+- "What development practices ACTUALLY improved/hindered velocity?"
 
 #### UX Expert Analysis
 
-```markdown
-## User Experience Patterns
+- "What UX patterns ACTUALLY improved user experience measurably?"
+- "Which design decisions had MEASURABLE user impact?"
+- "What accessibility improvements were ACTUALLY needed and used?"
 
-### UX Success Patterns
-
-- **{ux_pattern_1}:** Enhanced {ux_metric} by {improvement} | Stories: {story_list}
-- **{ux_pattern_2}:** Improved {ux_metric} by {improvement} | Stories: {story_list}
-
-### UX Challenge Patterns
-
-- **{challenge_1}:** Required {iteration_count} iterations | Stories: {story_list}
-- **{challenge_2}:** Needed {additional_effort} extra effort | Stories: {story_list}
-
-### Design System Evolution
-
-- **Components Added:** {component_count}
-- **Patterns Established:** {pattern_count}
-- **Accessibility Improvements:** {a11y_count}
-```
+**Evidence Requirement:** Each pattern must reference specific stories and measurable impact.
 
 ### Step 3: Party Mode Consensus Building (15 minutes)
 
@@ -280,106 +195,81 @@ Lead epic data consolidation with strategic focus on process insights:
 - [ ] **{strategic_2}** | Owner: @{agent} | Timeline: {timeframe} | Impact: {HIGH/MEDIUM/LOW}
 ```
 
-### Step 4: Epic Knowledge Consolidation (10 minutes)
+### Step 4: Epic Knowledge Consolidation (5 minutes)
 
 **Agent:** sm (Strategic Documentation Owner) with input validation from all agents
 
+**Documentation Value Focus:**
+
+- Focus on actionable insights vs comprehensive documentation
+- Reference story learning sections vs duplicating content
+- Apply documentation value test to each knowledge item
+
 ```markdown
-## Epic {epic_number} Knowledge Base
+## Epic {epic_number} Knowledge Summary
 
-### Epic Completion Summary
+### Epic Completion Metrics (Auto-Calculated)
 
-- **Business Value Delivered:** {value_score}/10
-- **Technical Quality Achieved:** {quality_score}/10
-- **Team Performance:** {performance_score}/10
-- **Process Efficiency:** {efficiency_score}/10
+- **Business Value:** {calculated_from_stories}/10
+- **Technical Quality:** {calculated_from_stories}/10
+- **Team Velocity:** {calculated_from_stories}
+- **Process Efficiency:** {derived_from_completion_times}
 
-### Critical Success Patterns (Apply to Future Epics)
+### Top 3 Success Patterns (Evidence-Based)
 
-1. **{critical_pattern_1}** | Impact: {quantified_impact} | Replication: {replication_guide}
-2. **{critical_pattern_2}** | Impact: {quantified_impact} | Replication: {replication_guide}
-3. **{critical_pattern_3}** | Impact: {quantified_impact} | Replication: {replication_guide}
+1. **{pattern}** | Evidence: {specific_stories} | Impact: {measurable_result}
+2. **{pattern}** | Evidence: {specific_stories} | Impact: {measurable_result}
+3. **{pattern}** | Evidence: {specific_stories} | Impact: {measurable_result}
 
-### Critical Anti-Patterns (Avoid in Future Epics)
+### Top 3 Anti-Patterns (Evidence-Based)
 
-1. **{anti_pattern_1}** | Cost: {quantified_cost} | Prevention: {prevention_guide}
-2. **{anti_pattern_2}** | Cost: {quantified_cost} | Prevention: {prevention_guide}
-3. **{anti_pattern_3}** | Cost: {quantified_cost} | Prevention: {prevention_guide}
+1. **{anti_pattern}** | Evidence: {specific_stories} | Cost: {measurable_impact}
+2. **{anti_pattern}** | Evidence: {specific_stories} | Cost: {measurable_impact}
+3. **{anti_pattern}** | Evidence: {specific_stories} | Cost: {measurable_impact}
 
-### Epic Legacy Items
-
-- **Architecture Improvements:** {arch_count} improvements implemented
-- **Process Innovations:** {process_count} new processes established
-- **Tool Enhancements:** {tool_count} tools improved/added
-- **Team Capabilities:** {capability_count} new capabilities developed
-
-### Knowledge Transfer Requirements
-
-- **Documentation:** {doc_items} items need documentation
-- **Training:** {training_items} items need team training
-- **Best Practices:** {practice_items} practices need codification
-- **Templates:** {template_items} templates need creation
+**Learning Data Source:** Individual story learning sections (referenced, not duplicated)
+**Epic Metrics Source:** Calculated from completed story data
 ```
 
-### Step 5: Epic Retrospective Artifacts (5 minutes)
+### Step 5: Epic Retrospective Summary (3 minutes)
 
 **Agent:** sm (Strategic Documentation Owner)
 
-Generate final epic retrospective artifacts:
+Generate concise retrospective summary:
 
 ```markdown
 # Epic {epic_number} Retrospective Summary
 
-## Epic Completion Metrics
+## Epic Completion (Auto-Calculated)
 
-- **Duration:** {total_days} days | **Target:** {target_days} days | **Variance:** {variance}
-- **Stories:** {story_count} completed | **Quality:** {avg_quality}/10 | **Velocity:** {avg_velocity}
-- **Learning Items:** {total_learning} captured | **Actions:** {action_count} defined
+- **Duration:** {calculated_days} days | **Quality:** {avg_from_stories}/10 | **Velocity:** {calculated_velocity}
+- **Learning Sources:** {story_count} story files with learning sections
 
-## Strategic Insights for Next Epic
+## Key Insights (Evidence-Based)
 
-### What Worked Well (Replicate)
+### Replicate: {top_3_success_patterns_from_consensus}
 
-- {insight_1}
-- {insight_2}
-- {insight_3}
+### Avoid: {top_3_anti_patterns_from_consensus}
 
-### What Didn't Work (Avoid)
+### Try Next: {top_3_experiments_from_consensus}
 
-- {insight_1}
-- {insight_2}
-- {insight_3}
+## Action Items (Consensus)
 
-### What to Try (Experiment)
+### Immediate: {immediate_actions_with_owners}
 
-- {experiment_1}
-- {experiment_2}
-- {experiment_3}
+### Strategic: {strategic_actions_with_owners}
 
-## Action Items for Next Epic
-
-### Immediate (Next Sprint)
-
-- {immediate_action_1} - @{owner} - Due: {date}
-- {immediate_action_2} - @{owner} - Due: {date}
-
-### Strategic (Next Epic)
-
-- {strategic_action_1} - @{owner} - Timeline: {timeframe}
-- {strategic_action_2} - @{owner} - Timeline: {timeframe}
-
-**Epic Retrospective Status:** COMPLETE  
-**Team Consensus:** ACHIEVED  
-**Next Epic Readiness:** {READY/NEEDS_PREP/BLOCKED}
+**Epic Status:** COMPLETE | **Team Consensus:** ACHIEVED | **Learning Data:** Referenced from story files
 ```
 
 ## Success Criteria
 
-- [ ] All story learnings consolidated at epic level
-- [ ] Multi-agent pattern analysis completed by all stakeholders
+- [ ] Epic metrics auto-calculated from story completion data (no manual tracking)
+- [ ] Learning data referenced from story files (no duplication)
+- [ ] Value-focused pattern analysis completed with evidence requirements
 - [ ] Team consensus achieved on top insights and improvements
 - [ ] Action items defined with clear ownership and timelines
-- [ ] Epic knowledge base created for future reference
+- [ ] Concise retrospective summary created with strategic focus
 - [ ] Next epic preparation actions identified and assigned
 
 ## Party Mode Consensus Protocol
@@ -399,15 +289,15 @@ Generate final epic retrospective artifacts:
 
 ## Integration Points
 
-- **Input from:** update-epic-progress (100% completion detected)
+- **Input from:** create-comprehensive-pr (100% completion auto-detected)
 - **Output to:** Next epic planning and story-implementation workflow
-- **Handoff:** "SM-led epic retrospective complete. Strategic process insights documented. Epic-level patterns identified. Next epic preparation initiated with SM oversight."
+- **Handoff:** "SM-led epic retrospective complete using auto-calculated metrics and story references. Strategic insights documented. Next epic preparation initiated with evidence-based patterns."
 
 ## LLM Optimization Notes
 
-- Multi-agent parallel analysis maximizes perspective diversity
-- Structured voting enables objective consensus building
-- Time-boxed sessions prevent analysis paralysis
-- Action-oriented outputs drive immediate value
-- Knowledge base format enables future epic reference
-- Token-efficient format maintains comprehensive coverage without overwhelming detail
+- Auto-calculated metrics eliminate manual tracking overhead
+- Story reference approach prevents documentation duplication
+- Evidence-based analysis reduces subjective interpretation
+- Value-focused patterns drive actionable insights
+- Concise format maintains strategic focus
+- Token-efficient approach provides essential insights without overwhelming detail

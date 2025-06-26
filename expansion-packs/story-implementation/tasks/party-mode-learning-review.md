@@ -41,12 +41,25 @@ SETUP:
 
 ### Review Process
 
-#### Round 1: Mandatory Challenge Protocol
+#### Round 1: Documentation Value Validation (MANDATORY)
+
+**Before consensus voting, each agent MUST apply value-first validation:**
+
+**Every Agent MUST Ask:**
+
+- "Does this learning item provide unique value not available in story files?"
+- "What specific decision does this enable that we can't make by referencing stories?"
+- "Is the maintenance cost of this information justified by its decision value?"
+- "Can this information be calculated/derived instead of manually tracked?"
+
+#### Round 2: Mandatory Challenge Protocol
 
 **CRITICAL REQUIREMENT:** Each agent MUST challenge at least 50% of proposed learning items with specific evidence requirements.
 
-**Product Owner MUST Challenge:**
+**Product Owner MUST Validate:**
 
+- "Does this deliver measurable business value vs. documentation overhead?"
+- "Would eliminating this item affect any business decisions?"
 - "Does this deliver measurable business value?"
 - "Is the problem scope worth the implementation investment?"
 - "Was this issue a business blocker or technical preference?"
@@ -55,8 +68,10 @@ SETUP:
 - "Was the methodology selection appropriate for this story's business context?"
 - "Would a different approach have delivered business value faster?"
 
-**Scrum Master MUST Challenge:**
+**Scrum Master MUST Validate:**
 
+- "Does this follow 'Tell Don't Ask' principle (derive vs. track)?"
+- "Is this value-focused vs. template-compliance focused?"
 - "Did this problem occur within our current implementation boundaries?"
 - "Is this learning item scope-appropriate for story retrospective?"
 - "Would this solution have prevented actual delays in THIS story?"
@@ -65,8 +80,10 @@ SETUP:
 - "Was the implementation approach selection appropriate for this story's complexity?"
 - "Would a different development method have reduced friction?"
 
-**Developer MUST Challenge:**
+**Developer MUST Validate:**
 
+- "Would maintaining this information create ongoing overhead?"
+- "Is this actionable vs. comprehensive documentation for its own sake?"
 - "Did we actually encounter this specific problem during implementation?"
 - "Would the proposed solution have helped with the exact issue we faced?"
 - "What existing tools already address this problem?"
@@ -75,8 +92,10 @@ SETUP:
 - "Was the technical approach selection appropriate for this implementation?"
 - "Would a different development methodology have prevented this issue?"
 
-**Architect MUST Challenge:**
+**Architect MUST Validate:**
 
+- "Is this information architecturally unique vs. derivable from implementation?"
+- "Does the technical value justify the documentation maintenance cost?"
 - "Is the proposed solution proportional to the problem scope?"
 - "Do we have evidence this architecture gap actually exists?"
 - "Are we over-engineering based on one data point?"
@@ -84,6 +103,15 @@ SETUP:
 - "Would this solution have prevented the specific issue we faced?"
 - "Was the architecture methodology appropriate for this problem scope?"
 - "Would a different technical approach have been more effective?"
+
+**Documentation Value Rejection Criteria:**
+
+- Template-driven documentation without business value → REJECT
+- Manual tracking of derivable data → REJECT
+- Comprehensive documentation without decision impact → REJECT
+- Process compliance over process value → REJECT
+
+**Acceptance Requirement:** ALL agents must confirm value justification passes documentation value validation.
 
 **Evidence-Based Validation Requirements:**
 Each agent must require:
@@ -94,7 +122,7 @@ Each agent must require:
 - Technical proportionality assessment
 - Current state validation before new suggestions
 
-#### Round 2: Evidence-Based Consensus Building
+#### Round 3: Evidence-Based Consensus Building
 
 **Consensus Requirement Framework:**
 Learning Item Acceptance Criteria:
@@ -124,7 +152,7 @@ EVIDENCE_VALIDATION_PROTOCOL:
 - Evidence-based discussion for each item mandatory
 ```
 
-#### Round 3: Action Planning
+#### Round 4: Action Planning
 
 **Immediate Actions (Current Sprint):**
 
@@ -196,6 +224,8 @@ CONSENSUS_METRICS:
 ## Success Criteria
 
 - [ ] All learning triage items reviewed by relevant domain experts
+- [ ] Documentation value validation completed for all items
+- [ ] All items pass documentation value test and evidence requirements
 - [ ] Priority conflicts resolved through team consensus
 - [ ] Clear ownership assigned to each action item
 - [ ] Immediate actions identified with specific timelines

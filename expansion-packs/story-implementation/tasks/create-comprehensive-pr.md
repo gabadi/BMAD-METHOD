@@ -202,7 +202,60 @@ gh pr edit --add-reviewer {dev_team_username}    # For URGENT_FIX items
 gh pr edit --add-reviewer {sm_username}          # For PROCESS_IMPROVEMENT items
 ```
 
-### Step 5: Update Story File with PR Information (1 minute)
+### Step 5: Epic Completion Auto-Detection (2 minutes)
+
+Calculate epic status automatically:
+
+```markdown
+## Epic Status Auto-Calculation
+
+### Epic Completion Detection
+
+- **Epic File:** docs/prd/epic{epic_number}.md
+- **Total Stories:** {count_from_epic_file}
+- **Completed Stories:** {count_stories_with_status_done}
+- **Completion Percentage:** {completed/total \* 100}%
+
+### Auto-Trigger Logic
+
+IF completion_percentage == 100% THEN:
+
+- Epic Status: COMPLETE
+- Next Action: MANDATORY_EPIC_RETROSPECTIVE
+- Trigger: AUTOMATIC
+  ELSE:
+- Epic Status: IN_PROGRESS
+- Next Action: CONTINUE_STORIES
+- Trigger: NONE
+
+**Epic Retrospective Required:** {YES/NO}
+**Auto-Trigger Status:** {TRIGGERED/NOT_TRIGGERED}
+```
+
+### Step 6: Update Epic File with Calculated Status (1 minute)
+
+Update epic file with derived information:
+
+```markdown
+## Story Implementation Progress (Auto-Updated)
+
+**Last Updated:** {YYYY-MM-DD} | **Updated By:** PO (Auto-Calculated)
+
+### Current Status (Calculated)
+
+- **Epic Progress:** {completion_percentage}% ({completed}/{total} stories)
+- **Epic Status:** {IN_PROGRESS/COMPLETE}
+- **Latest Story:** Story {story_number} - DONE (PR #{pr_number})
+- **Epic Retrospective:** {MANDATORY_TRIGGERED/NOT_REQUIRED}
+
+### Learning Integration (Referenced)
+
+- **Learning Items:** See individual story files for details
+- **Epic Candidates:** Aggregated from story learning sections
+- **Action Items:** Current sprint items from latest stories
+```
+
+### Step 7: Update Story File with PR Information (1 minute)
 
 ```markdown
 ## Pull Request Created
@@ -233,8 +286,9 @@ gh pr edit --add-reviewer {sm_username}          # For PROCESS_IMPROVEMENT items
 ## Success Criteria
 
 - [ ] PR created with comprehensive business and technical context
-- [ ] Epic completion status prominently displayed
-- [ ] Epic retrospective context included (if triggered)
+- [ ] Epic completion status auto-calculated and prominently displayed
+- [ ] Epic retrospective auto-trigger status determined and documented
+- [ ] Epic file updated with calculated status (no manual tracking)
 - [ ] Learning items prominently featured with action assignments
 - [ ] Validation evidence clearly documented
 - [ ] Appropriate reviewers assigned based on learning categories
@@ -266,8 +320,8 @@ REVIEWER_MAPPING:
 ## Integration Points
 
 - **Input from:** commit-and-prepare-pr (commit and context)
-- **Output to:** update-epic-progress (epic tracking)
-- **Handoff:** "PR created and ready for review. Epic progress tracking initiated."
+- **Output to:** epic-party-mode-retrospective (if epic 100% complete) OR workflow completion
+- **Handoff:** "PR created and ready for review. Epic completion auto-calculated. Epic retrospective: {TRIGGERED/NOT_TRIGGERED} based on completion status."
 
 ## LLM Optimization Notes
 
