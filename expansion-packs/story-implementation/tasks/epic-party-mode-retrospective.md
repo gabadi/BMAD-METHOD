@@ -28,6 +28,34 @@ Conduct comprehensive epic retrospective with all key stakeholders to consolidat
 - Process improvements for future epics
 - Epic completion artifacts and knowledge base
 
+## Methodology Effectiveness Analysis
+
+### Epic-Level Methodology Decision Patterns
+
+**Workflow Selection Analysis:**
+
+- Review all story workflow choices (story-simple vs story-implementation)
+- Identify patterns of appropriate vs inappropriate selections
+- Document methodology decision effectiveness across epic
+
+**Tool Selection Analysis:**
+
+- Review all core task usage (review-story, execute-checklist, etc.)
+- Identify patterns of effective vs ineffective tool choices
+- Document tool selection methodology across epic
+
+**Agent Assignment Analysis:**
+
+- Review all agent assignment decisions across stories
+- Identify patterns of effective vs ineffective assignments
+- Document assignment methodology effectiveness
+
+**Approach Selection Analysis:**
+
+- Review all technical/process approach decisions
+- Identify patterns of successful vs problematic approach choices
+- Document approach selection methodology across epic
+
 ## Multi-Agent Participants
 
 - **sm** (Scrum Master) - Epic retrospective facilitator and strategic documentation owner

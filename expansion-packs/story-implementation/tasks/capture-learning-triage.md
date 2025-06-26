@@ -113,6 +113,8 @@ For each potential learning item, validate:
 3. **Current State Audit:** "What existing tools/processes already address this?"
 4. **Solution Proportionality:** "Is proposed solution proportional to specific problem?"
 5. **Evidence Requirement:** "What concrete evidence supports this need?"
+6. **Methodology Decision Check:** "What methodology decision during this story contributed to this problem?"
+7. **Alternative Approach Assessment:** "What alternative approach would have prevented this specific issue?"
 
 **Scope Boundary Rules:**
 
@@ -121,6 +123,8 @@ For each potential learning item, validate:
 ✅ Knowledge gaps exposed during development
 ✅ Patterns discovered during coding
 ✅ Team capabilities revealed during execution
+✅ Methodology decisions that created problems during execution
+✅ Workflow selection issues revealed through story completion
 
 **INVALID Learning Item Scope (REJECT IMMEDIATELY):**
 ❌ General process improvements not related to story
@@ -129,6 +133,8 @@ For each potential learning item, validate:
 ❌ Preventive measures without specific incidents
 ❌ Security tooling suggestions beyond specific findings
 ❌ Automation suggestions for workflows not used in this story
+❌ Methodology critiques without story execution evidence
+❌ Workflow changes without proven alternative effectiveness
 
 **Rejection Criteria:**
 

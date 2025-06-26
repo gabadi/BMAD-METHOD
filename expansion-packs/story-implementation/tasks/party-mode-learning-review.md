@@ -52,6 +52,8 @@ SETUP:
 - "Was this issue a business blocker or technical preference?"
 - "Is this within our story scope or future epic territory?"
 - "Did this problem impact story delivery measurably?"
+- "Was the methodology selection appropriate for this story's business context?"
+- "Would a different approach have delivered business value faster?"
 
 **Scrum Master MUST Challenge:**
 
@@ -60,6 +62,8 @@ SETUP:
 - "Would this solution have prevented actual delays in THIS story?"
 - "Are we solving a real problem or creating busywork?"
 - "Was this within our actual workflow execution?"
+- "Was the workflow selection appropriate for this story's complexity?"
+- "Would a different process approach have reduced friction?"
 
 **Developer MUST Challenge:**
 
@@ -68,6 +72,8 @@ SETUP:
 - "What existing tools already address this problem?"
 - "Is this proportional to the actual issue we experienced?"
 - "Are we solving for real vs theoretical problems?"
+- "Was the technical approach selection appropriate for this implementation?"
+- "Would a different development methodology have prevented this issue?"
 
 **Architect MUST Challenge:**
 
@@ -76,6 +82,8 @@ SETUP:
 - "Are we over-engineering based on one data point?"
 - "What current tooling/patterns already handle this?"
 - "Would this solution have prevented the specific issue we faced?"
+- "Was the architecture methodology appropriate for this problem scope?"
+- "Would a different technical approach have been more effective?"
 
 **Evidence-Based Validation Requirements:**
 Each agent must require:
