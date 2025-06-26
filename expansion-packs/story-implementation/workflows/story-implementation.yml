@@ -16,7 +16,7 @@ workflow:
     working_directory: ".story-implementation/"
     cleanup_before_pr: true
     final_story_pattern: "epic{epic_number}.story{story_number}.story.md"
-    
+
   documentation_limits:
     max_lines_per_temp_file: 50
     actionable_items_only: true
@@ -40,7 +40,7 @@ workflow:
       required: true
     story_number:
       type: string
-      description: The story number within the epic (e.g., "1", "2", "3")  
+      description: The story number within the epic (e.g., "1", "2", "3")
       required: true
 
   outputs:
@@ -67,7 +67,7 @@ workflow:
         - epic_validation_status
       checklist: po-master-checklist.md
       notes: "REQUIRED: Use Task tool for execution - Validate epic business readiness and dependencies before story creation"
-      
+
     - step: create_story
       agent: sm
       action: create-next-story
@@ -79,7 +79,7 @@ workflow:
         - story_file
       notes: "REQUIRED: Use Task tool for execution - Create comprehensive story from epic context using existing bmad-core task"
       story_status_update: "Draft"
-      
+
     - step: validate_story_draft
       agent: sm
       action: execute-checklist
@@ -90,7 +90,7 @@ workflow:
         - draft_validation_status
       checklist: story-draft-checklist.md
       notes: "REQUIRED: Use Task tool for execution - Validate story draft quality and completeness using bmad-core checklist"
-      
+
     - step: po_approval
       agent: po
       action: approve-story-for-development
@@ -105,7 +105,7 @@ workflow:
       success_criteria: "CRITICAL: Story must achieve minimum 90% approval threshold (4.5/5 validation criteria) to proceed to development"
       notes: "REQUIRED: Use Task tool for execution - Product Owner validates business value and approves for development with 90% threshold requirement"
       story_status_update: "Approved"
-      
+
     - step: environment_setup
       agent: infra-devops-platform
       action: setup-development-environment
@@ -115,13 +115,13 @@ workflow:
       outputs:
         - environment_status
       notes: "REQUIRED: Use Task tool for execution - Ensure development environment ready for story implementation"
-      
+
     - step: setup_temp_workspace
       action: internal
       requires: environment_setup
       create_directory: "{temp_folder}"
       notes: "Create temporary workspace for workflow coordination before reviews"
-      
+
     - step: implement_story
       agent: dev
       action: implement-story-development
@@ -136,7 +136,7 @@ workflow:
         - quality_gates_status
       notes: "REQUIRED: Use Task tool for execution - Complete story implementation with validation (includes project quality gates)"
       story_status_update: "In Progress"
-      
+
     - step: pre_review_validation
       agent: dev
       action: execute-checklist
@@ -149,7 +149,7 @@ workflow:
       checklist: story-dod-checklist.md
       notes: "REQUIRED: Use Task tool for execution - Final validation before reviews - ensures project quality gates pass"
       story_status_update: "Review"
-      
+
     - step: round1_architecture_review
       agent: architect
       action: execute-checklist
@@ -161,7 +161,7 @@ workflow:
         - arch_review_results
       checklist: architect-checklist.md
       notes: "REQUIRED: Use Task tool for execution - Round 1 - Architect validates technical design and architecture"
-      
+
     - step: round1_business_review
       agent: po
       action: execute-checklist
@@ -172,7 +172,7 @@ workflow:
         - biz_review_results
       checklist: po-master-checklist.md
       notes: "REQUIRED: Use Task tool for execution - Round 1 - Product Owner validates business alignment and value"
-      
+
     - step: round1_process_review
       agent: sm
       action: execute-checklist
@@ -183,7 +183,7 @@ workflow:
         - proc_review_results
       checklist: story-dod-checklist.md
       notes: "REQUIRED: Use Task tool for execution - Round 1 - Scrum Master validates process compliance and DoD"
-      
+
     - step: round1_qa_review
       agent: qa
       action: review-story
@@ -194,7 +194,7 @@ workflow:
       outputs:
         - qa_review_results
       notes: "REQUIRED: Use Task tool for execution - Round 1 - Senior developer code review with refactoring capability"
-      
+
     - step: round1_ux_review
       agent: ux-expert
       action: execute-checklist
@@ -205,7 +205,7 @@ workflow:
         - ux_review_results
       checklist: ux-checklist.md
       notes: "REQUIRED: Use Task tool for execution - Round 1 - UX expert validates user experience and accessibility"
-      
+
     - step: consolidate_feedback
       agent: sm
       action: consolidate-review-feedback
@@ -227,7 +227,7 @@ workflow:
         - file: "{decisions_file}"
           content: "technical_decisions"
       notes: "REQUIRED: Use Task tool for execution - Extract actionable items from review feedback. Workflow handles file creation."
-      
+
     - step: implement_fixes
       agent: dev
       action: implement-consolidated-fixes
@@ -244,7 +244,7 @@ workflow:
         - file: "{fixes_summary_file}"
           content: "fixes_implementation_summary"
       notes: "REQUIRED: Use Task tool for execution - Implement fixes and decisions from consolidation. Workflow handles file creation."
-      
+
     - step: validate_fixes
       agent: sm
       action: validate-consolidated-fixes
@@ -262,7 +262,7 @@ workflow:
           content: "remaining_issues"
           condition: "validation_status == NEEDS_FIXES"
       notes: "REQUIRED: Use Task tool for execution - Validate that fixes address consolidated feedback priorities"
-      
+
     - step: learning_triage
       agent: architect
       action: capture-learning-triage
@@ -279,7 +279,7 @@ workflow:
         - file: "{learning_items_file}"
           content: "technical_debt, architecture_improvements, future_work"
       notes: "REQUIRED: Use Task tool for execution - Extract actionable technical debt and improvement items"
-      
+
     - step: party_mode_review
       agent: architect
       action: party-mode-learning-review
@@ -295,7 +295,7 @@ workflow:
           content: "final_learning_items"
       notes: "REQUIRED: Use Task tool for execution - Validate and prioritize learning items with ownership"
       story_status_update: "Learning Reviewed"
-      
+
     - step: commit_and_prepare_pr
       agent: dev
       action: commit-and-prepare-pr
@@ -309,7 +309,7 @@ workflow:
         - story_technical_decisions
       notes: "REQUIRED: Use Task tool for execution - Commit implementation and extract technical decisions for story file"
       story_status_update: "Changes Committed"
-      
+
     - step: create_comprehensive_pr
       agent: po
       action: create-comprehensive-pr
@@ -331,13 +331,13 @@ workflow:
           description: "pr_description"
       notes: "REQUIRED: Use Task tool for execution - Create simple PR with essential context. Workflow handles PR creation and story updates."
       story_status_update: "Done - Delivered"
-      
+
     - step: cleanup_temp_workspace
       action: internal
       requires: create_comprehensive_pr
       remove_directory: "{temp_folder}"
       notes: "Clean up temporary workspace after PR creation"
-      
+
     - step: epic_retrospective
       agent: sm
       action: epic-party-mode-retrospective
@@ -387,10 +387,10 @@ workflow:
       - "New business workflows or processes"
       - "External system integration WITH new APIs"
       - "Security feature implementation"
-      
+
     story_simple_indicators:
       - "UI/UX improvements (styling, layout, visual optimization)"
-      - "CSS-based performance optimizations" 
+      - "CSS-based performance optimizations"
       - "Cross-component styling changes WITHOUT new business logic"
       - "Content updates without functional changes"
       - "Simple configuration changes (environment, build settings)"
@@ -399,17 +399,9 @@ workflow:
       - "Visual/accessibility improvements"
       - "Multi-file CSS changes"
       - "Component consolidation (UI refactoring)"
-      
+
     validation_warning: |
       ⚠️ WARNING: Story complexity may not match selected workflow.
       Complex workflow selected but story may be simpler than expected.
       Consider using story-simple workflow for better efficiency.
       
-    epic_11_story_2_learning: |
-      📋 LEARNED FROM EPIC 11 STORY 2 (CSS height optimization):
-      Epic 11 Story 2 was incorrectly classified as story-implementation when it should have been story-simple:
-      - Change: CSS height optimization (60px) + responsive variants
-      - Files: 4 core files (mostly CSS) + 9 documentation files
-      - Should have been: story-simple (9 steps, 2-3 days)
-      - Actually used: story-implementation (15 steps, 4-5 days)
-      - Lesson: Multi-file CSS changes without new business logic = story-simple

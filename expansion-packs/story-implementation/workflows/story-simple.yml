@@ -329,14 +329,6 @@ workflow:
       Simple workflow selected but story shows complex indicators.
       Consider using story-implementation workflow for comprehensive validation.
       
-    epic_11_story_2_example: |
-      📋 LEARNED FROM EPIC 11 STORY 2 (CSS height optimization):
-      - Multi-file CSS changes → story-simple ✓
-      - Cross-component styling → story-simple ✓ 
-      - Responsive design → story-simple ✓
-      - NO new business logic → story-simple ✓
-      Result: Should have been story-simple (9 steps) not story-implementation (15 steps)
-
   dependencies:
     core_bmad_agents:
       - po (Product Owner)
