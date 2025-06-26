@@ -36,16 +36,43 @@ This task provides efficient SM process validation after comprehensive Round 1 r
 
 ### Pre-Validation Analysis
 
-1. **Review implementation documentation**
+1. **Current State Audit (NEW MANDATORY STEP):**
+
+   **Before validating any fixes, verify current capabilities:**
+
+   - Check existing tooling installation and functionality
+   - Validate current process capabilities
+   - Test what already works vs what was assumed broken
+   - Document baseline functionality before assessing improvements
+
+2. **Evidence-Based Validation Requirements:**
+
+   **For each implemented fix, validate:**
+
+   - Was the original problem actually encountered during story?
+   - Does the fix address the specific issue that occurred?
+   - Is the solution proportional to the problem scope?
+   - Would this fix have prevented the exact issue we faced?
+
+3. **Scope Boundary Validation:**
+
+   **Confirm each fix is within story boundaries:**
+
+   - Fix addresses issue from story implementation experience
+   - Solution scope matches problem scope
+   - No expansion beyond original AC requirements
+   - No preventive measures for theoretical problems
+
+4. **Review implementation documentation**
 
    - Read story file implementation section thoroughly
    - Compare implemented fixes against original consolidated feedback
    - Identify any REQUIRED-FOR-COMPLETION items that were not addressed
    - Note any technical decisions or changes made during implementation
 
-2. **Assess validation approach needed**
+5. **Assess validation approach needed**
    - Identify which fixes require technical code review
-   - Determine which changes need UX validation via Playwright
+   - Determine which changes need UX validation
    - Note any business logic changes requiring functional testing
    - Plan validation sequence based on dependencies
 

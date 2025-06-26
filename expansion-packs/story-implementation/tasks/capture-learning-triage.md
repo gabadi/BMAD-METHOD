@@ -87,15 +87,64 @@ CONTEXT_REVIEW:
 - Key technical challenges: [List top 3]
 ```
 
-### Step 2: Extract Learning Items
+### Step 2: Evidence-First Learning Extraction (MANDATORY VALIDATION)
 
-For each category, scan implementation evidence:
+**CRITICAL FIRST STEP - Current State Audit:**
+Before generating ANY learning items, mandatory verification:
 
-- Review feedback patterns
-- Implementation fix patterns
-- Quality gate failure patterns
-- Time/effort variance patterns
-- Technical decision points
+1. **Existing Tooling Verification:**
+
+   - Check project dependency manifests for existing tools/libraries
+   - Verify current tooling installation and functionality
+   - Test existing automation capabilities before suggesting new ones
+   - Document what already works vs what's assumed missing
+
+2. **Workflow Boundary Validation:**
+   - Identify what workflows were actually used in this story
+   - Review existing build/test/deployment scripts
+   - Validate current workflow execution paths
+   - Focus only on gaps exposed during THIS story execution
+
+**Evidence-First Validation Framework:**
+For each potential learning item, validate:
+
+1. **Specific Problem Encountered:** "What exact issue occurred during story implementation?"
+2. **Scope Boundary Check:** "Was this issue within the story workflow execution?"
+3. **Current State Audit:** "What existing tools/processes already address this?"
+4. **Solution Proportionality:** "Is proposed solution proportional to specific problem?"
+5. **Evidence Requirement:** "What concrete evidence supports this need?"
+
+**Scope Boundary Rules:**
+
+**VALID Learning Item Scope:**
+✅ Issues encountered during story implementation
+✅ Knowledge gaps exposed during development
+✅ Patterns discovered during coding
+✅ Team capabilities revealed during execution
+
+**INVALID Learning Item Scope (REJECT IMMEDIATELY):**
+❌ General process improvements not related to story
+❌ Tooling enhancements without evidence of problems
+❌ Workflow enhancements not used in story execution
+❌ Preventive measures without specific incidents
+❌ Security tooling suggestions beyond specific findings
+❌ Automation suggestions for workflows not used in this story
+
+**Rejection Criteria:**
+
+- Any validation fails → REJECT item
+- Theoretical problems without evidence → REJECT
+- Solutions outside story workflow scope → REJECT
+- Over-engineered responses to simple issues → REJECT
+- Assumptions about missing capabilities → REJECT
+
+**For each category, scan implementation evidence:**
+
+- Review feedback patterns (with evidence validation)
+- Implementation fix patterns (with scope validation)
+- Quality gate failure patterns (with proportionality check)
+- Time/effort variance patterns (with current state audit)
+- Technical decision points (with boundary validation)
 
 ### Step 3: Triage and Prioritize
 

@@ -41,56 +41,79 @@ SETUP:
 
 ### Review Process
 
-#### Round 1: Priority Validation
+#### Round 1: Mandatory Challenge Protocol
 
-**Each Participant Reviews Their Domain:**
+**CRITICAL REQUIREMENT:** Each agent MUST challenge at least 50% of proposed learning items with specific evidence requirements.
 
-**Architect:** ARCH_CHANGE + TOOLING items
+**Product Owner MUST Challenge:**
 
-- Validate technical priority and feasibility
-- Confirm architecture impact assessment
-- Suggest alternative solutions if needed
+- "Does this deliver measurable business value?"
+- "Is the problem scope worth the implementation investment?"
+- "Was this issue a business blocker or technical preference?"
+- "Is this within our story scope or future epic territory?"
+- "Did this problem impact story delivery measurably?"
 
-**PO:** FUTURE_EPIC + KNOWLEDGE_GAP items
+**Scrum Master MUST Challenge:**
 
-- Validate business value and roadmap fit
-- Confirm epic candidate priorities
-- Assess resource requirements
+- "Did this problem occur within our current workflow boundaries?"
+- "Is this learning item scope-appropriate for story retrospective?"
+- "Would this solution have prevented actual delays in THIS story?"
+- "Are we solving a real problem or creating busywork?"
+- "Was this within our actual workflow execution?"
 
-**Dev:** URGENT_FIX + PROCESS_IMPROVEMENT items
+**Developer MUST Challenge:**
 
-- Validate technical urgency and impact
-- Confirm implementation effort estimates
-- Suggest process optimization approaches
+- "Did we actually encounter this specific problem during implementation?"
+- "Would the proposed solution have helped with the exact issue we faced?"
+- "What existing tools already address this problem?"
+- "Is this proportional to the actual issue we experienced?"
+- "Are we solving for real vs theoretical problems?"
 
-**SM:** PROCESS_IMPROVEMENT + KNOWLEDGE_GAP items
+**Architect MUST Challenge:**
 
-- Validate team impact and workflow effects
-- Confirm training and development needs
-- Assess team capacity for improvements
+- "Is the proposed solution proportional to the problem scope?"
+- "Do we have evidence this architecture gap actually exists?"
+- "Are we over-engineering based on one data point?"
+- "What current tooling/patterns already handle this?"
+- "Would this solution have prevented the specific issue we faced?"
 
-**Architect (Session Facilitator):** Technical learning categorization leadership
+**Evidence-Based Validation Requirements:**
+Each agent must require:
 
-- Facilitate technical discussions and pattern identification
-- Ensure proper categorization of technical learning items
-- Guide team toward actionable technical decisions
-- Document final learning categorization with technical context
+- Specific evidence for problem claims
+- Scope validation within story boundaries
+- Effort justification for solutions
+- Technical proportionality assessment
+- Current state validation before new suggestions
 
-#### Round 2: Collaborative Triage
+#### Round 2: Evidence-Based Consensus Building
 
-**Conflict Resolution:**
+**Consensus Requirement Framework:**
+Learning Item Acceptance Criteria:
 
-- Priority disagreements → Team vote (majority wins)
-- Ownership disputes → Architect assigns based on technical expertise and SM input
-- Timeline conflicts → Negotiate based on capacity with architect guidance
+- Unanimous agreement from all agents on problem existence
+- Specific evidence provided for each learning item
+- Scope validation confirmed by Scrum Master
+- Effort justification approved by Product Owner
+- Technical proportionality validated by Architect
 
-**Consensus Building:**
+**Rejection Triggers:**
+
+- Any agent challenges scope without satisfactory evidence → REJECT
+- Solution disproportionate to problem (Architect veto) → REJECT
+- Outside workflow boundaries (Scrum Master veto) → REJECT
+- No business value justification (Product Owner veto) → REJECT
+- No evidence of actual problem (Developer veto) → REJECT
+
+**Enhanced Consensus Building:**
 
 ```
-VOTING_PROTOCOL:
-- Each agent: 3 votes for HIGH priority items
-- Majority vote determines final priority
-- Ties resolved by story complexity impact
+EVIDENCE_VALIDATION_PROTOCOL:
+- Each learning item must answer: "What specific problem occurred during story implementation?"
+- Each agent validates: Evidence requirements met for their domain
+- Unanimous consensus required for acceptance
+- Active agreement required, not passive acceptance
+- Evidence-based discussion for each item mandatory
 ```
 
 #### Round 3: Action Planning

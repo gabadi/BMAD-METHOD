@@ -70,16 +70,37 @@ FEEDBACK_ANALYSIS:
 
 ### Step 2: Priority Classification
 
-**SCOPE-CREEP DETECTION (Scrum Master Responsibility):**
-Before classification, compare ALL feedback against original story acceptance criteria:
+**ENHANCED SCOPE-CREEP DETECTION (Scrum Master Responsibility):**
 
-- Read original user story and acceptance criteria from story file
-- Compare each suggestion against original requirements
-- Flag anything NOT explicitly required by acceptance criteria
-- Identify tests/standards beyond project minimums
-- Mark nice-to-have additions that expand scope
-- Apply "strict AC compliance" - if not in original AC = potential scope creep
-- Consult architect for complex technical feasibility questions if needed
+**MANDATORY FIRST STEP - Original AC Validation:**
+
+1. Read original user story and ALL acceptance criteria from story file
+2. Create explicit requirements list from original AC
+3. Compare EVERY suggestion against original requirements
+4. Apply "strict AC compliance" - if not in original AC = potential scope creep
+5. Document specific AC section for each legitimate requirement
+
+**SCOPE-CREEP IDENTIFICATION RULES:**
+
+- Features not in original acceptance criteria → SCOPE-CREEP
+- Tests beyond project minimum standards (unless AC specifies) → SCOPE-CREEP
+- **Workflow enhancements not used in THIS story execution** → SCOPE-CREEP
+  - If story implemented without CI/automation, CI suggestions = SCOPE-CREEP
+  - If story DID use CI and found problems, CI improvements = VALID
+- "Should also do X" suggestions where X is not in AC → SCOPE-CREEP
+- Security tooling beyond specific vulnerability found → SCOPE-CREEP
+- Visual regression testing not required by AC → SCOPE-CREEP
+- Automation for manual workflows not used in story → SCOPE-CREEP
+- Preventive measures for theoretical problems → SCOPE-CREEP
+
+**EVIDENCE REQUIREMENT:**
+Every non-SCOPE-CREEP item must answer:
+
+- What specific problem occurred during story implementation?
+- What evidence supports this problem claim?
+- What existing tools/processes already address this?
+- Would this solution have prevented the specific issue we faced?
+- Was this issue within the workflow we actually executed?
 
 **REQUIRED-FOR-COMPLETION** (Blocks story completion):
 
