@@ -4,291 +4,109 @@
 
 **Agent:** architect  
 **Action Type:** learning-triage  
-**Duration:** 10-15 minutes  
-**LLM-Optimized:** Token-efficient structured capture
+**Duration:** 5-8 minutes  
+**Purpose:** Extract actionable technical debt and improvement items
 
 ## Purpose
 
-Systematically capture and triage learnings from story implementation to drive continuous improvement and feed future epics.
+Analyze implementation experience, identify technical debt and improvement opportunities, output actionable items only.
 
 ## Inputs
 
-- Story implementation file (docs/stories/epic{epic_number}.story{story_number}.story.md)
-- All review feedback from Round 1 reviews
-- Implementation fixes and changes
-- Quality gate results and metrics
+- `implementation_summary` (object): Implementation details and decisions
+- `quality_gates_status` (object): Quality validation results
 
 ## Outputs
 
-- Learning items captured in story file under ## Learning Triage section
-- Categorized learning items with priorities and owners
-- Action items for immediate and future implementation
+- `technical_debt` (array): Technical debt items requiring fixes
+- `architecture_improvements` (array): Architecture patterns to standardize
+- `future_work` (array): Technical work for future planning
 
-## Learning Categories
+## Instructions
 
-### ARCH_CHANGE (Architecture Changes Required)
+### Step 1: Identify Technical Debt (2-3 minutes)
 
-- **Purpose:** Technical debt or architecture improvements identified
-- **Token Limit:** 50 tokens per item
-- **Format:** `ARCH: [Component] - [Issue] - [Impact] - [Owner: architect]`
-- **Priority:** HIGH/MEDIUM/LOW
-- **Timeline:** Current epic / Next epic / Technical debt backlog
+From implementation experience, identify:
 
-### FUTURE_EPIC (Epic Candidate Features)
+**Architecture improvements needed:**
 
-- **Purpose:** Features or capabilities that emerged during implementation
-- **Token Limit:** 50 tokens per item
-- **Format:** `EPIC: [Feature] - [Business Value] - [Complexity] - [Owner: po]`
-- **Priority:** HIGH/MEDIUM/LOW
-- **Timeline:** Next sprint / Next quarter / Future roadmap
+- Performance bottlenecks discovered
+- Code quality issues found
+- Technical constraints that hindered development
+- Integration problems encountered
 
-### URGENT_FIX (Critical Issues Requiring Immediate Attention)
+**Technical decisions requiring follow-up:**
 
-- **Purpose:** Blockers or critical issues that need immediate resolution
-- **Token Limit:** 50 tokens per item
-- **Format:** `URGENT: [Issue] - [Impact] - [Fix Required] - [Owner: dev/architect]`
-- **Priority:** CRITICAL (resolve within current sprint)
-- **Timeline:** Immediate (within 1-2 days)
+- Temporary solutions that need permanent fixes
+- Libraries/approaches that should be standardized
+- Missing tooling or automation gaps
 
-### PROCESS_IMPROVEMENT (Development Process Enhancements)
+### Step 2: Filter for Actionability (1-2 minutes)
 
-- **Purpose:** Workflow, tooling, or process improvements identified
-- **Token Limit:** 50 tokens per item
-- **Format:** `PROCESS: [Area] - [Current State] - [Improvement] - [Owner: sm]`
-- **Priority:** HIGH/MEDIUM/LOW
-- **Timeline:** Current sprint / Next sprint / Continuous improvement
+**INCLUDE (actionable):**
 
-### TOOLING (Development Tooling and Infrastructure)
+- Specific technical debt items requiring fixes
+- Performance issues with measurable impact
+- Missing tooling that would improve development
+- Architecture patterns that should be standardized
 
-- **Purpose:** Tools, automation, or infrastructure improvements needed
-- **Token Limit:** 50 tokens per item
-- **Format:** `TOOLING: [Tool/System] - [Gap] - [Solution] - [Owner: infra-devops-platform]`
-- **Priority:** HIGH/MEDIUM/LOW
-- **Timeline:** Current sprint / Next sprint / Infrastructure roadmap
+**EXCLUDE (not actionable):**
 
-### KNOWLEDGE_GAP (Team Knowledge and Training Needs)
+- General best practices already known
+- Theoretical improvements without specific problems
+- Process observations
+- Congratulations or approval confirmations
 
-- **Purpose:** Skills, knowledge, or training gaps identified during implementation
-- **Token Limit:** 50 tokens per item
-- **Format:** `KNOWLEDGE: [Area] - [Gap] - [Training Need] - [Owner: sm/po]`
-- **Priority:** HIGH/MEDIUM/LOW
-- **Timeline:** Current sprint / Next sprint / Long-term development
+### Step 3: Structure Learning Output (2-3 minutes)
 
-## Execution Steps
+Return structured data:
 
-### Step 1: Review Implementation Context
+```yaml
+technical_debt:
+  - item: "Mobile responsive testing gaps"
+    location: "CSS media queries"
+    impact: "User experience on mobile devices"
+    action: "Add mobile testing to CI pipeline"
+    priority: "HIGH"
+  - item: "Performance bottleneck in navigation"
+    location: "BreadcrumbTrail component"
+    impact: "Rendering delay >200ms"
+    action: "Implement virtual scrolling"
+    priority: "MEDIUM"
 
-```
-CONTEXT_REVIEW:
-- Story complexity: [SIMPLE/MODERATE/COMPLEX]
-- Implementation time: [Actual vs Estimated]
-- Quality gate failures: [Count and types]
-- Review rounds required: [1/2/3+]
-- Key technical challenges: [List top 3]
-```
+architecture_improvements:
+  - pattern: "CSS standardization"
+    current_issue: "Mixed CSS modules and inline styles"
+    benefit: "Consistent styling approach"
+    action: "Establish CSS standards document"
+  - pattern: "State management consistency"
+    current_issue: "Mix of stores and props"
+    benefit: "Predictable data flow"
+    action: "Define state management guidelines"
 
-### Step 2: Documentation Value Validation (MANDATORY)
-
-**Before generating ANY learning items, apply value-first validation:**
-
-#### Documentation Value Test (MANDATORY for each item)
-
-1. **Unique Value Test:**
-
-   - Question: "What information does this contain not available in story files?"
-   - Required: Specific evidence of unique value
-   - Rejection: If derivable from existing sources
-
-2. **Decision Impact Test:**
-
-   - Question: "What decisions does this enable that can't be made from story references?"
-   - Required: Clear decision-making value
-   - Rejection: If no actionable decisions enabled
-
-3. **Maintenance Cost Test:**
-
-   - Question: "What effort is required to keep this current vs. its value?"
-   - Required: Justification of maintenance overhead
-   - Rejection: If maintenance cost > decision value
-
-4. **Single Source Truth Test:**
-   - Question: "Can this information be calculated/derived instead of tracked?"
-   - Required: Validation that manual tracking is necessary
-   - Rejection: If calculable from existing data
-
-#### Evidence-First Learning Framework
-
-For each potential learning item:
-
-```
-VALIDATION_CHECKLIST:
-□ Specific problem occurred during THIS story implementation
-□ Evidence provided (not theoretical)
-□ Within story implementation scope (not general improvements)
-□ Solution proportional to actual problem encountered
-□ Not derivable from existing story documentation
-□ Actionable decision enabled by this information
-□ Maintenance effort justified by decision value
-
-REJECTION_TRIGGERS:
-❌ Theoretical problems without evidence
-❌ General improvements not tied to story issues
-❌ Information duplicating existing sources
-❌ Solutions disproportionate to problems
-❌ Maintenance overhead without decision value
+future_work:
+  - work: "Automated accessibility testing"
+    problem: "Manual a11y validation is slow"
+    solution: "Integrate axe-core in CI"
+    timeline: "Next sprint"
+  - work: "Component documentation"
+    problem: "No component usage examples"
+    solution: "Add Storybook documentation"
+    timeline: "Next epic"
 ```
 
-**Learning Item Acceptance Criteria:**
-
-- ALL validation checks must pass
-- Evidence-based problem identification
-- Proportional solution to actual issue
-- Unique value not available elsewhere
-- Passes documentation value test
-
-### Step 3: Evidence-First Learning Extraction (MANDATORY VALIDATION)
-
-**CRITICAL FIRST STEP - Current State Audit:**
-Before generating ANY learning items, mandatory verification:
-
-1. **Existing Tooling Verification:**
-
-   - Check project dependency manifests for existing tools/libraries
-   - Verify current tooling installation and functionality
-   - Test existing automation capabilities before suggesting new ones
-   - Document what already works vs what's assumed missing
-
-2. **Implementation Approach Validation:**
-   - Identify what implementation methods were actually used in this story
-   - Review existing build/test/deployment scripts
-   - Validate current implementation execution paths
-   - Focus only on gaps exposed during THIS story execution
-
-**Evidence-First Validation Framework:**
-For each potential learning item, validate:
-
-1. **Specific Problem Encountered:** "What exact issue occurred during story implementation?"
-2. **Scope Boundary Check:** "Was this issue within the story implementation approach?"
-3. **Current State Audit:** "What existing tools/processes already address this?"
-4. **Solution Proportionality:** "Is proposed solution proportional to specific problem?"
-5. **Evidence Requirement:** "What concrete evidence supports this need?"
-6. **Methodology Decision Check:** "What methodology decision during this story contributed to this problem?"
-7. **Alternative Approach Assessment:** "What alternative approach would have prevented this specific issue?"
-
-**Scope Boundary Rules:**
-
-**VALID Learning Item Scope:**
-✅ Issues encountered during story implementation
-✅ Knowledge gaps exposed during development
-✅ Patterns discovered during coding
-✅ Team capabilities revealed during execution
-✅ Methodology decisions that created problems during execution
-✅ Approach selection issues revealed through story completion
-
-**INVALID Learning Item Scope (REJECT IMMEDIATELY):**
-❌ General process improvements not related to story
-❌ Tooling enhancements without evidence of problems
-❌ Implementation method enhancements not used in story execution
-❌ Preventive measures without specific incidents
-❌ Security tooling suggestions beyond specific findings
-❌ Automation suggestions for implementation methods not used in this story
-❌ Methodology critiques without story execution evidence
-❌ Approach changes without proven alternative effectiveness
-
-**Rejection Criteria:**
-
-- Any validation fails → REJECT item
-- Theoretical problems without evidence → REJECT
-- Solutions outside story implementation scope → REJECT
-- Over-engineered responses to simple issues → REJECT
-- Assumptions about missing capabilities → REJECT
-
-**For each category, scan implementation evidence:**
-
-- Review feedback patterns (with evidence validation)
-- Implementation fix patterns (with scope validation)
-- Quality gate failure patterns (with proportionality check)
-- Time/effort variance patterns (with current state audit)
-- Technical decision points (with boundary validation)
-
-### Step 4: Triage and Prioritize
-
-```
-TRIAGE_MATRIX:
-High Priority: Blocks current/next sprint, affects team velocity
-Medium Priority: Improves quality/efficiency, affects future work
-Low Priority: Nice-to-have improvements, long-term optimization
-```
-
-### Step 5: Assign Owners and Timelines
-
-```
-OWNERSHIP_ASSIGNMENT:
-- architect: Architecture, technical debt, system design
-- po: Business features, epic candidates, requirements
-- dev: Implementation issues, code quality, technical fixes
-- sm: Process improvements, team coordination, knowledge gaps
-- infra-devops-platform: Tooling, infrastructure, automation
-```
+**Max 10 actionable items total. Focus on technical improvements with clear next steps.**
 
 ## Success Criteria
 
-- [ ] All learning categories reviewed and populated
-- [ ] Documentation value validation completed for each item
-- [ ] Evidence-based problem identification for all items
-- [ ] Each item under 50 tokens with clear action owner
-- [ ] Priority and timeline assigned to each item
-- [ ] Immediate actions (URGENT_FIX) clearly identified
-- [ ] Future epic candidates captured with business value
-- [ ] Learning items added to story file under ## Learning Triage
-- [ ] All items pass documentation value test (unique value, decision impact, maintenance justification)
-
-## Evidence Documentation
-
-Update story file with:
-
-```markdown
-## Learning Triage
-
-**Architect:** [Name] | **Date:** [YYYY-MM-DD] | **Duration:** [X minutes]
-
-### ARCH_CHANGE
-
-- ARCH: [Component] - [Issue] - [Impact] - [Owner: architect] | Priority: [HIGH/MEDIUM/LOW] | Timeline: [Current/Next/Backlog]
-
-### FUTURE_EPIC
-
-- EPIC: [Feature] - [Business Value] - [Complexity] - [Owner: po] | Priority: [HIGH/MEDIUM/LOW] | Timeline: [Next/Quarter/Future]
-
-### URGENT_FIX
-
-- URGENT: [Issue] - [Impact] - [Fix Required] - [Owner: dev/architect] | Priority: CRITICAL | Timeline: Immediate
-
-### PROCESS_IMPROVEMENT
-
-- PROCESS: [Area] - [Current State] - [Improvement] - [Owner: sm] | Priority: [HIGH/MEDIUM/LOW] | Timeline: [Current/Next/Continuous]
-
-### TOOLING
-
-- TOOLING: [Tool/System] - [Gap] - [Solution] - [Owner: infra-devops-platform] | Priority: [HIGH/MEDIUM/LOW] | Timeline: [Current/Next/Infrastructure]
-
-### KNOWLEDGE_GAP
-
-- KNOWLEDGE: [Area] - [Gap] - [Training Need] - [Owner: sm/po] | Priority: [HIGH/MEDIUM/LOW] | Timeline: [Current/Next/Long-term]
-
-**Summary:** [X items captured] | [X urgent] | [X epic candidates] | [X process improvements]
-```
+- [ ] Technical debt items identified with specific actions
+- [ ] Architecture improvements documented with clear benefits
+- [ ] No theoretical or process-related items included
+- [ ] All items have concrete next steps
+- [ ] Ready for technical planning and prioritization
 
 ## Integration Points
 
-- **Input from:** validate_fixes (final architect review)
-- **Output to:** party-mode-learning-review (collaborative review)
-- **Handoff:** "Learning triage complete. Ready for collaborative review session."
-
-## LLM Optimization Notes
-
-- Token limits enforce brevity and focus
-- Structured format enables rapid scanning
-- Evidence-based categorization reduces subjective interpretation
-- Clear ownership prevents action item limbo
-- Timeline specificity enables proper backlog management
+- **Input from:** implement-story-development task
+- **Output to:** party-mode-learning-review task
+- **Data format:** Structured YAML objects
