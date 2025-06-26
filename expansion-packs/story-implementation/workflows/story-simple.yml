@@ -302,28 +302,40 @@ workflow:
 
   complexity_validation:
     simple_story_indicators:
-      - "UI positioning/styling changes"
-      - "Content updates without logic changes"  
-      - "Simple configuration changes"
+      - "UI/UX improvements (styling, layout, visual optimization)"
+      - "CSS-based performance optimizations" 
+      - "Cross-component styling changes WITHOUT new business logic"
+      - "Content updates without functional changes"
+      - "Simple configuration changes (environment, build settings)"
       - "Documentation updates"
-      - "Small backend changes (single function/endpoint)"
       - "Bug fixes without architectural impact"
-      - "Parameter tweaks or minor logic adjustments"
-      - "Simple validation or error message updates"
+      - "Responsive design adjustments"
+      - "Visual/accessibility improvements"
+      - "Multi-file CSS changes"
+      - "Component consolidation (UI refactoring)"
       
     complex_story_indicators:
-      - "New business workflows or processes"
-      - "Database schema changes"
-      - "Multiple component integration"
-      - "External system integration"
+      - "New features WITH business logic or data processing"
+      - "Database schema changes OR new API endpoints"
+      - "Complex state management OR new data flows"
+      - "Cross-system integration WITH new functionality"
       - "Authentication/authorization changes"
       - "Performance optimization requiring architecture changes"
-      - "Cross-system dependencies"
+      - "Multi-service or backend-frontend integration"
+      - "New business workflows or processes"
       
     validation_warning: |
       ⚠️ WARNING: Story complexity may not match selected workflow.
       Simple workflow selected but story shows complex indicators.
       Consider using story-implementation workflow for comprehensive validation.
+      
+    epic_11_story_2_example: |
+      📋 LEARNED FROM EPIC 11 STORY 2 (CSS height optimization):
+      - Multi-file CSS changes → story-simple ✓
+      - Cross-component styling → story-simple ✓ 
+      - Responsive design → story-simple ✓
+      - NO new business logic → story-simple ✓
+      Result: Should have been story-simple (9 steps) not story-implementation (15 steps)
 
   dependencies:
     core_bmad_agents:

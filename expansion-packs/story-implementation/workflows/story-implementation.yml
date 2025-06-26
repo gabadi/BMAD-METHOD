@@ -374,3 +374,42 @@ workflow:
     - halt_on_failure: true
     - Each step must complete successfully before proceeding
     - Failed steps should be retried after addressing issues
+
+  complexity_validation:
+    story_implementation_indicators:
+      - "New features WITH business logic or data processing"
+      - "Database schema changes OR new API endpoints"
+      - "Complex state management OR new data flows"
+      - "Cross-system integration WITH new functionality"
+      - "Authentication/authorization changes"
+      - "Performance optimization requiring architecture changes"
+      - "Multi-service or backend-frontend integration"
+      - "New business workflows or processes"
+      - "External system integration WITH new APIs"
+      - "Security feature implementation"
+      
+    story_simple_indicators:
+      - "UI/UX improvements (styling, layout, visual optimization)"
+      - "CSS-based performance optimizations" 
+      - "Cross-component styling changes WITHOUT new business logic"
+      - "Content updates without functional changes"
+      - "Simple configuration changes (environment, build settings)"
+      - "Bug fixes without architectural impact"
+      - "Responsive design adjustments"
+      - "Visual/accessibility improvements"
+      - "Multi-file CSS changes"
+      - "Component consolidation (UI refactoring)"
+      
+    validation_warning: |
+      ⚠️ WARNING: Story complexity may not match selected workflow.
+      Complex workflow selected but story may be simpler than expected.
+      Consider using story-simple workflow for better efficiency.
+      
+    epic_11_story_2_learning: |
+      📋 LEARNED FROM EPIC 11 STORY 2 (CSS height optimization):
+      Epic 11 Story 2 was incorrectly classified as story-implementation when it should have been story-simple:
+      - Change: CSS height optimization (60px) + responsive variants
+      - Files: 4 core files (mostly CSS) + 9 documentation files
+      - Should have been: story-simple (9 steps, 2-3 days)
+      - Actually used: story-implementation (15 steps, 4-5 days)
+      - Lesson: Multi-file CSS changes without new business logic = story-simple
