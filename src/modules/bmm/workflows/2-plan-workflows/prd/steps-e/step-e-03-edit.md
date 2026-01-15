@@ -124,6 +124,16 @@ Apply changes and return updated section."
 Changes: {brief summary}
 {More sections remaining...}"
 
+### 3.1 FR Immutability Enforcement
+
+FR numbers are **IDs**, not logical order:
+- ✅ New FRs get next sequential ID (FR1-10 → FR11, regardless of conceptual grouping)
+- ✅ Add `[DEPRECATED]` prefix (preserve original text)
+- ✅ Add `[Supersedes FRx]` to replacement FRs
+- ❌ Never modify/delete/reorder/renumber existing FRs
+
+**IF violation detected:** STOP, return to step-e-02-review.md
+
 ### 4. Handle Restructuring (If Needed)
 
 **If conversion mode is "Full restructuring" or "Both":**
@@ -249,5 +259,6 @@ Display:
 - Not updating frontmatter
 - No final verification
 - Not saving updated PRD
+- Modifying/deleting/renumbering existing FRs (immutability violation)
 
 **Master Rule:** Execute the plan exactly as approved. PRD is now ready for validation or downstream use. Validation integration ensures quality.

@@ -158,6 +158,8 @@ Please describe the changes you want to make. For example:
 
 **Wait for user to describe their requirements.**
 
+**IF user wants to modify/reorder existing FRs:** FR numbers are IDs - redirect to allowed operations (add new sequential FRs, mark `[DEPRECATED]`, or `[Supersedes]`).
+
 ### 7. Detect PRD Format
 
 Analyze the loaded PRD:

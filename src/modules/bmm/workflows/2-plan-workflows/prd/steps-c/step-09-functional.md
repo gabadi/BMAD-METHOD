@@ -224,6 +224,10 @@ When user selects 'C', append the content directly to the document using the str
 
 Emphasize to user: "This FR list is now binding. Any feature not listed here will not exist in the final product unless we explicitly add it. This is why it's critical to ensure completeness now."
 
+## ⚠️ FR IMMUTABILITY:
+
+Before saving, warn user: "FR numbers become **immutable IDs** after this step. New FRs always get next sequential ID (no inserting/reordering). Can mark `[DEPRECATED]` or add `[Supersedes FRx]`. Review carefully."
+
 ## NEXT STEP:
 
 After user selects 'C' and content is saved to document, load {nextStepFile} to define non-functional requirements.

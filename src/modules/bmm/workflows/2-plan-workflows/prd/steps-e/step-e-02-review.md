@@ -123,6 +123,14 @@ Return detailed change plan with section breakdown."
 - Content to remove (if incorrect/leakage)
 - Structure changes (if reformatting needed)
 
+### 2.1 FR Immutability Check
+
+FR numbers are **IDs**, not logical order. IF plan includes FR modifications, block and redirect:
+- ✅ New FRs get next ID (FR1-10 exists → FR11, even if extending FR6)
+- ✅ Add `[DEPRECATED]` prefix to obsolete FRs
+- ✅ Add `[Supersedes FRx]` to replacement FRs
+- ❌ Never modify/delete/reorder/renumber existing FRs
+
 ### 3. Prepare Change Plan Summary
 
 **Summary sections:**
@@ -245,5 +253,6 @@ Load and execute {nextStepFile} (step-e-03-edit.md)
 - Missing section-by-section breakdown
 - Not prioritizing changes
 - Proceeding without user approval
+- Approving FR modifications (immutability violation)
 
 **Master Rule:** Plan before editing. Thorough analysis ensures we make the right changes in the right order. User approval prevents misalignment.
